@@ -8,6 +8,8 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, Inter, Permanent_Marker } from "next/font/google";
 import { SHOP, SITE_URL, SITE_DESCRIPTION, OG_IMAGE } from "@/lib/constants";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 // Fonts — Street / Hustle direction
@@ -150,13 +152,16 @@ export default function RootLayout({
       lang="en"
       className={`${anton.variable} ${inter.variable} ${permanentMarker.variable}`}
     >
-      <body className="font-body">
+      <body className="font-body" style={{ background: "var(--color-ink-black)", color: "var(--color-bone-white)" }}>
         {/* JSON-LD for search engines */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <a href="#main" className="skip-link">Skip to content</a>
+        <Navbar />
+        <main id="main" style={{ minHeight: "60vh" }}>{children}</main>
+        <Footer />
       </body>
     </html>
   );
