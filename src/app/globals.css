@@ -1,0 +1,178 @@
+/**
+ * Bleeding Ink — global styles.
+ *
+ * Tailwind v4 @theme registers brand tokens that mirror src/lib/constants.ts.
+ * Component-level styles (btn-primary, drip-divider, etc.) live here too.
+ */
+
+@import "tailwindcss";
+
+@theme {
+  /* Brand color tokens — keep in sync with src/lib/constants.ts */
+  --color-bleed-red: #8B0000;
+  --color-ink-black: #0A0A0A;
+  --color-bone-white: #F5F1E8;
+  --color-ash-gray: #8A8A8A;
+  --color-gold: #C9A84C;
+
+  /* Font families (registered in layout.tsx via next/font/google) */
+  --font-display: var(--font-anton), "Impact", sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-marker: var(--font-permanent-marker), cursive;
+
+  /* Default body */
+  --color-background: #F5F1E8;
+  --color-foreground: #0A0A0A;
+}
+
+/* Global resets + base */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Selection color matches the brand */
+::selection {
+  background: var(--color-bleed-red);
+  color: var(--color-bone-white);
+}
+
+/* ============================
+   Component classes (Tailwind v4)
+   ============================ */
+
+/* Primary CTA button — bleed red on bone white */
+.btn-primary {
+  display: inline-block;
+  background: var(--color-bleed-red);
+  color: var(--color-bone-white);
+  padding: 14px 28px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 2px solid var(--color-bleed-red);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background: var(--color-bone-white);
+  color: var(--color-bleed-red);
+}
+
+/* Secondary CTA — transparent with red border */
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-bleed-red);
+  padding: 14px 28px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 2px solid var(--color-bleed-red);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  background: var(--color-bleed-red);
+  color: var(--color-bone-white);
+}
+
+/* Nav links */
+.nav-link {
+  color: var(--color-bone-white);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: opacity 0.15s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+/* Drip divider — a small red blood drop between sections */
+.drip-divider {
+  display: block;
+  margin: 0 auto;
+  width: 24px;
+  height: 32px;
+  fill: var(--color-bleed-red);
+}
+
+/* Hero overlay — adds dark gradient on top of hero images */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.4) 0%,
+    rgba(10, 10, 10, 0.6) 60%,
+    rgba(10, 10, 10, 0.85) 100%
+  );
+}
+
+/* Card — generic for artist + portfolio tiles */
+.card {
+  background: var(--color-bone-white);
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.12);
+}
+
+/* Form input shared styles */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  background: var(--color-bone-white);
+  border: 2px solid rgba(10, 10, 10, 0.15);
+  color: var(--color-ink-black);
+  transition: border-color 0.15s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-bleed-red);
+}
+
+/* Responsive utilities — mobile-first */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .desktop-cta {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-menu-btn {
+    display: none !important;
+  }
+}
