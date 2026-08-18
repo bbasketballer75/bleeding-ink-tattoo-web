@@ -1,0 +1,386 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "ms_total": 3161,
+    "signals": {
+      "title": "Bleeding Ink \u2014 Custom Tattoos in Johnstown, PA",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/",
+      "og_title": "Bleeding Ink \u2014 Custom Tattoos in Johnstown, PA",
+      "og_image": "https://bleedinginktattoo.com/og-default.svg",
+      "og_desc": "Custom tattoos, coverups, and color work at Bleeding Ink inside the Johnstown Galleria. Walk-ins welcome. Free consultation. $65 deposit.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 1,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 42,
+      "links_no_text": 0,
+      "buttons_total": 1,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 764,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 457,
+      "dom_content_loaded_ms": 596,
+      "load_ms": 1640,
+      "total_transfer_kb": 294,
+      "total_requests": 32,
+      "dom_nodes": 534
+    },
+    "axe_violations": 2,
+    "axe_serious": 2,
+    "axe_violation_list": [
+      {
+        "id": "aria-prohibited-attr",
+        "impact": "serious",
+        "help": "Elements must only use permitted ARIA attributes",
+        "nodes": 3
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 13
+      }
+    ]
+  },
+  {
+    "route": "/artists",
+    "status": 200,
+    "ms_total": 1798,
+    "signals": {
+      "title": "Our Artists \u00b7 Bleeding Ink",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/artists",
+      "og_title": "Our Artists",
+      "og_image": "https://bleedinginktattoo.com/og/artists.svg",
+      "og_desc": "Meet the artists at Bleeding Ink Tattooing in Johnstown, PA. Custom tattoos, coverups, color work, apprentices.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 2,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 26,
+      "links_no_text": 0,
+      "buttons_total": 1,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 228,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 76,
+      "dom_content_loaded_ms": 150,
+      "load_ms": 250,
+      "total_transfer_kb": 52,
+      "total_requests": 35,
+      "dom_nodes": 315
+    },
+    "axe_violations": 1,
+    "axe_serious": 1,
+    "axe_violation_list": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 6
+      }
+    ]
+  },
+  {
+    "route": "/portfolio",
+    "status": 200,
+    "ms_total": 1695,
+    "signals": {
+      "title": "Portfolio \u00b7 Bleeding Ink",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/portfolio",
+      "og_title": "Portfolio",
+      "og_image": "https://bleedinginktattoo.com/og/portfolio.svg",
+      "og_desc": "Browse portfolio pieces by Isiah Jackson and Courtney Fetzer \u2014 traditional, fine line, blackwork, neo-traditional, coverups, and color work. Filter by style.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 2,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 26,
+      "links_no_text": 0,
+      "buttons_total": 10,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 288,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 73,
+      "dom_content_loaded_ms": 171,
+      "load_ms": 273,
+      "total_transfer_kb": 45,
+      "total_requests": 31,
+      "dom_nodes": 485
+    },
+    "axe_violations": 2,
+    "axe_serious": 1,
+    "axe_violation_list": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 5
+      },
+      {
+        "id": "heading-order",
+        "impact": "moderate",
+        "help": "Heading levels should only increase by one",
+        "nodes": 1
+      }
+    ]
+  },
+  {
+    "route": "/services",
+    "status": 200,
+    "ms_total": 1718,
+    "signals": {
+      "title": "Services & Pricing \u00b7 Bleeding Ink",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/services",
+      "og_title": "Services & Pricing",
+      "og_image": "https://bleedinginktattoo.com/og/services.svg",
+      "og_desc": "Custom tattoos, coverups, color work, free consultations at Bleeding Ink in Johnstown, PA. Walk-ins welcome.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 2,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 30,
+      "links_no_text": 0,
+      "buttons_total": 1,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 268,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 69,
+      "dom_content_loaded_ms": 177,
+      "load_ms": 291,
+      "total_transfer_kb": 45,
+      "total_requests": 31,
+      "dom_nodes": 343
+    },
+    "axe_violations": 1,
+    "axe_serious": 1,
+    "axe_violation_list": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 7
+      }
+    ]
+  },
+  {
+    "route": "/faq",
+    "status": 200,
+    "ms_total": 1669,
+    "signals": {
+      "title": "FAQ \u00b7 Bleeding Ink",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/faq",
+      "og_title": "FAQ",
+      "og_image": "https://bleedinginktattoo.com/og/default.svg",
+      "og_desc": "Common questions about Bleeding Ink in Johnstown, PA \u2014 walk-ins, $65 deposit, ages, aftercare, coverups.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 3,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 25,
+      "links_no_text": 0,
+      "buttons_total": 1,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 296,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 98,
+      "dom_content_loaded_ms": 170,
+      "load_ms": 214,
+      "total_transfer_kb": 45,
+      "total_requests": 31,
+      "dom_nodes": 354
+    },
+    "axe_violations": 1,
+    "axe_serious": 1,
+    "axe_violation_list": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 6
+      }
+    ]
+  },
+  {
+    "route": "/book",
+    "status": 200,
+    "ms_total": 2031,
+    "signals": {
+      "title": "Book a Session \u00b7 Bleeding Ink",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/book",
+      "og_title": "Book a Session",
+      "og_image": "https://bleedinginktattoo.com/og/book.svg",
+      "og_desc": "Book a free consultation or tattoo session at Bleeding Ink in Johnstown, PA. Tell us your idea, size, placement, and preferred artist. We'll respond within 1 business day.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 2,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 24,
+      "links_no_text": 0,
+      "buttons_total": 2,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 244,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 59,
+      "dom_content_loaded_ms": 118,
+      "load_ms": 264,
+      "total_transfer_kb": 45,
+      "total_requests": 31,
+      "dom_nodes": 383
+    },
+    "axe_violations": 3,
+    "axe_serious": 1,
+    "axe_violation_list": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 5
+      },
+      {
+        "id": "heading-order",
+        "impact": "moderate",
+        "help": "Heading levels should only increase by one",
+        "nodes": 1
+      },
+      {
+        "id": "landmark-complementary-is-top-level",
+        "impact": "moderate",
+        "help": "Aside should not be contained in another landmark",
+        "nodes": 1
+      }
+    ]
+  },
+  {
+    "route": "/contact",
+    "status": 200,
+    "ms_total": 1996,
+    "signals": {
+      "title": "Contact \u00b7 Bleeding Ink",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/contact",
+      "og_title": "Contact",
+      "og_image": "https://bleedinginktattoo.com/og/default.svg",
+      "og_desc": "Get in touch with Bleeding Ink in Johnstown, PA. Phone (215) 980-1386, hours, location at the Johnstown Galleria, and consultation form.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 2,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 26,
+      "links_no_text": 0,
+      "buttons_total": 2,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 308,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 110,
+      "dom_content_loaded_ms": 183,
+      "load_ms": 690,
+      "total_transfer_kb": 45,
+      "total_requests": 32,
+      "dom_nodes": 365
+    },
+    "axe_violations": 1,
+    "axe_serious": 1,
+    "axe_violation_list": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 11
+      }
+    ]
+  },
+  {
+    "route": "/aftercare",
+    "status": 200,
+    "ms_total": 1690,
+    "signals": {
+      "title": "Tattoo Aftercare Guide \u00b7 Bleeding Ink",
+      "h1": 1,
+      "meta_desc": true,
+      "canonical": "https://bleedinginktattoo.com/aftercare",
+      "og_title": "Tattoo Aftercare Guide",
+      "og_image": "https://bleedinginktattoo.com/og/aftercare.svg",
+      "og_desc": "Complete tattoo aftercare guide from Bleeding Ink in Johnstown, PA. First 24 hours, washing, moisturizing, sun exposure, swimming, signs of infection, and the full healing timeline.",
+      "twitter_card": "summary_large_image",
+      "jsonld_count": 2,
+      "imgs_total": 0,
+      "imgs_no_alt": 0,
+      "links_total": 34,
+      "links_no_text": 0,
+      "buttons_total": 1,
+      "buttons_no_text": 1,
+      "inputs_no_label": 0,
+      "viewport_meta": true
+    },
+    "metrics": {
+      "lcp_ms": 268,
+      "cls": 0,
+      "fcp_ms": 0,
+      "ttfb_ms": 88,
+      "dom_content_loaded_ms": 155,
+      "load_ms": 282,
+      "total_transfer_kb": 45,
+      "total_requests": 31,
+      "dom_nodes": 448
+    },
+    "axe_violations": 1,
+    "axe_serious": 1,
+    "axe_violation_list": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 14
+      }
+    ]
+  }
+]
