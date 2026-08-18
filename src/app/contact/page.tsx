@@ -116,9 +116,9 @@ export default function ContactPage() {
                 </div>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 15, lineHeight: 1.8 }}>
                   {SHOP.hours.map((h) => (
-                    <li key={h.day} style={{ display: "flex", justifyContent: "space-between", gap: 16, maxWidth: 280, opacity: h.hours === "Closed" ? 0.5 : 1 }}>
+                    <li key={h.day} style={{ display: "flex", justifyContent: "space-between", gap: 16, maxWidth: 280, color: "var(--color-ink-black)" }}>
                       <span>{h.day}</span>
-                      <span style={{ fontWeight: h.hours === "Closed" ? 400 : 600 }}>{h.hours}</span>
+                      <span style={{ fontWeight: h.hours === "Closed" ? 400 : 600, color: h.hours === "Closed" ? "#666" : "var(--color-ink-black)" }}>{h.hours}</span>
                     </li>
                   ))}
                 </ul>

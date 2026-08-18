@@ -33,6 +33,7 @@ export default function Footer() {
 
   return (
     <footer
+      data-theme="dark"
       style={{
         background: INK_BLACK,
         color: BONE_WHITE,
@@ -186,7 +187,7 @@ export default function Footer() {
             style={{
               fontFamily: "var(--font-marker)",
               fontSize: 18,
-              color: "#FF6B6B",
+              color: "#FF8888",
               opacity: 1,
               letterSpacing: "0.02em",
             }}

@@ -153,7 +153,7 @@ export default function RootLayout({
       lang="en"
       className={`${anton.variable} ${inter.variable} ${permanentMarker.variable}`}
     >
-      <body className="font-body" style={{ background: "var(--color-ink-black)", color: "var(--color-bone-white)" }}>
+      <body className="font-body" style={{ background: "var(--color-bone-white)", color: "var(--color-ink-black)" }}>
         {/* JSON-LD for search engines */}
         <script
           type="application/ld+json"
