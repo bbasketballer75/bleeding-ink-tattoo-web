@@ -9,7 +9,7 @@
  */
 
 import Link from "next/link";
-import { BLEED_RED, BLEED_RED_BRIGHT, BONE_WHITE, INK_BLACK, SHOP } from "@/lib/constants";
+import { BLEED_RED_BRIGHT, BONE_WHITE, INK_BLACK, SHOP } from "@/lib/constants";
 import OpenStatusBadge from "./OpenStatusBadge";
 import { telLink } from "@/lib/utils";
 
@@ -27,7 +27,7 @@ const QUICK_LINKS = [
 const SOCIAL_LINKS = [
   { href: SHOP.social.instagram, label: "Instagram", short: "IG" },
   { href: SHOP.social.facebook,  label: "Facebook",  short: "FB" },
-  { href: SHOP.social.threads,    label: "Threads",   short: "@" },
+  { href: SHOP.social.threads,   label: "Threads",   short: "@" },
 ];
 
 export default function Footer() {
@@ -192,7 +192,7 @@ export default function Footer() {
             style={{
               fontFamily: "var(--font-marker)",
               fontSize: 18,
-              color: "#FF8888",
+              color: BONE_WHITE,
               opacity: 1,
               letterSpacing: "0.02em",
             }}

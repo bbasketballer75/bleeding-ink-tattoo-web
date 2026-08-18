@@ -23,6 +23,8 @@ ROUTES = [
     ("/contact",           ["contact", "form", "215"]),
     ("/aftercare",         ["aftercare", "24", "healing"]),
     ("/legal",             ["Privacy", "Terms", "deposit"]),
+    ("/pricing",           ["Pricing", "deposit", "consultation"]),
+    ("/about",             ["About", "studio", "Johnstown"]),
     ("/sitemap.xml",       ["<urlset", "bleedinginktattoo.com"]),
     ("/robots.txt",        ["User-Agent", "Sitemap"]),
     ("/og-default.svg",    ["<svg"]),

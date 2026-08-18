@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/contact`,  lastModified: now, changeFrequency: "yearly",  priority: 0.5, images: [`${BASE_URL}/og-default.svg`] },
     { url: `${BASE_URL}/aftercare`,lastModified: now, changeFrequency: "monthly", priority: 0.7, images: [`${BASE_URL}/og/aftercare.svg`] },
     { url: `${BASE_URL}/legal`,    lastModified: now, changeFrequency: "yearly",  priority: 0.3, images: [`${BASE_URL}/og-default.svg`] },
+    { url: `${BASE_URL}/pricing`,  lastModified: now, changeFrequency: "monthly", priority: 0.7, images: [`${BASE_URL}/og-default.svg`] },
+    { url: `${BASE_URL}/about`,    lastModified: now, changeFrequency: "yearly",  priority: 0.6, images: [`${BASE_URL}/og-default.svg`] },
   ];
 
   // Artist detail routes (auto-discovered from data)
