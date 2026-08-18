@@ -58,7 +58,7 @@ export default function MobileStickyCTA() {
           transition: "transform 0.25s ease",
           boxShadow: "0 -4px 20px rgba(0, 0, 0, 0.4)",
         }}
-       data-theme="dark">
+      >
         <a
           href={telLink()}
           style={{

@@ -38,7 +38,7 @@ export default function Footer() {
         color: BONE_WHITE,
         marginTop: 80,
       }}
-     data-theme="dark">
+    >
       <div
         style={{
           maxWidth: 1280,
