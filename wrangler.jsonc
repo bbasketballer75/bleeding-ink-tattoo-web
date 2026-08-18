@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bleeding-ink-tattoo-web",
+  "main": ".open-next/worker.js",
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat_v2"],
+  "observability": {
+    "enabled": true
+  },
+  // Free-tier friendly: Workers Unpaid plan default
+  // (no paid limits set; will use Workers Free tier: 100k requests/day)
+  "vars": {
+    "ENVIRONMENT": "production"
+  }
+}

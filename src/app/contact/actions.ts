@@ -3,12 +3,15 @@
 /**
  * Server action for the contact form on /contact.
  *
- * Uses Resend to send an email to the configured RESEND_TO_EMAIL address.
- * Falls back gracefully if RESEND_API_KEY isn't set (dev mode logs to console).
+ * Runtime-agnostic:
+ *   - In Node (dev/Vercel): uses Resend SDK, env via process.env
+ *   - In Cloudflare Workers: uses Resend REST API via fetch, env via Cloudflare
+ *     bindings OR compat `process.env` (via nodejs_compat flag).
+ *
+ * Falls back gracefully if no API key is set (logs only — useful for demo).
  */
 
-import { Resend } from "resend";
-import { SHOP, DEPOSIT_MIN } from "@/lib/constants";
+import { DEPOSIT_MIN } from "@/lib/constants";
 
 interface ContactSubmission {
   name: string;
@@ -21,6 +24,17 @@ interface ContactSubmission {
 interface ContactResult {
   ok: boolean;
   error?: string;
+}
+
+/** Read an env var from either Node's process.env or Cloudflare's env (workers) */
+function getEnv(name: string): string | undefined {
+  if (typeof process !== "undefined" && process.env && process.env[name]) {
+    return process.env[name];
+  }
+  // Cloudflare bindings — exposed on globalThis via the OpenNext adapter
+  const cfEnv = (globalThis as { CloudflareEnv?: Record<string, string> }).CloudflareEnv;
+  if (cfEnv && cfEnv[name]) return cfEnv[name];
+  return undefined;
 }
 
 export async function submitContact(formData: FormData): Promise<ContactResult> {
@@ -46,51 +60,60 @@ export async function submitContact(formData: FormData): Promise<ContactResult> 
     return { ok: false, error: "Message is too long — keep it under 4,000 characters." };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.RESEND_TO_EMAIL || process.env.CONTACT_TO_EMAIL;
+  const apiKey = getEnv("RESEND_API_KEY");
+  const toEmail = getEnv("RESEND_TO_EMAIL") || getEnv("CONTACT_TO_EMAIL");
+  const fromAddress =
+    getEnv("RESEND_FROM_EMAIL") || "Bleeding Ink Website <onboarding@resend.dev>";
+
+  const subjectLine = `[Bleeding Ink] ${submission.subject} — ${submission.name}`;
+  const html = `
+    <h2>New contact form submission</h2>
+    <table style="border-collapse: collapse;">
+      <tr><td style="padding: 4px 12px 4px 0;"><strong>Name</strong></td><td>${escapeHtml(submission.name)}</td></tr>
+      <tr><td style="padding: 4px 12px 4px 0;"><strong>Email</strong></td><td>${escapeHtml(submission.email)}</td></tr>
+      ${submission.phone ? `<tr><td style="padding: 4px 12px 4px 0;"><strong>Phone</strong></td><td>${escapeHtml(submission.phone)}</td></tr>` : ""}
+      <tr><td style="padding: 4px 12px 4px 0;"><strong>Subject</strong></td><td>${escapeHtml(submission.subject)}</td></tr>
+    </table>
+    <h3>Message</h3>
+    <p style="white-space: pre-wrap;">${escapeHtml(submission.message)}</p>
+    <hr>
+    <p style="color: #888; font-size: 12px;">
+      Sent from bleedinginktattoo.com contact form. Deposit reminder: $${DEPOSIT_MIN} non-refundable.
+    </p>
+  `;
 
   if (!apiKey || !toEmail) {
-    // Dev-mode: log + pretend success. The form will say "Thanks, we'll be in touch."
+    // Demo / dev-mode: log + pretend success. The form will say "Thanks, we'll be in touch."
     console.log("[contact] RESEND_API_KEY or RESEND_TO_EMAIL not set — logging submission:", {
-      to: "shop owner",
+      to: toEmail || "shop owner (not configured)",
       from: submission.email,
-      name: submission.name,
-      phone: submission.phone ?? "(none)",
-      subject: `[Bleeding Ink] ${submission.subject} — ${submission.name}`,
+      subject: subjectLine,
       message: submission.message,
     });
     return { ok: true };
   }
 
   try {
-    const resend = new Resend(apiKey);
-    const fromAddress = process.env.RESEND_FROM_EMAIL || "Bleeding Ink Website <onboarding@resend.dev>";
-
-    const { error } = await resend.emails.send({
-      from: fromAddress,
-      to: toEmail,
-      replyTo: submission.email,
-      subject: `[Bleeding Ink] ${submission.subject} — ${submission.name}`,
-      html: `
-        <h2>New contact form submission</h2>
-        <table style="border-collapse: collapse;">
-          <tr><td style="padding: 4px 12px 4px 0;"><strong>Name</strong></td><td>${escapeHtml(submission.name)}</td></tr>
-          <tr><td style="padding: 4px 12px 4px 0;"><strong>Email</strong></td><td>${escapeHtml(submission.email)}</td></tr>
-          ${submission.phone ? `<tr><td style="padding: 4px 12px 4px 0;"><strong>Phone</strong></td><td>${escapeHtml(submission.phone)}</td></tr>` : ""}
-          <tr><td style="padding: 4px 12px 4px 0;"><strong>Subject</strong></td><td>${escapeHtml(submission.subject)}</td></tr>
-        </table>
-        <h3>Message</h3>
-        <p style="white-space: pre-wrap;">${escapeHtml(submission.message)}</p>
-        <hr>
-        <p style="color: #888; font-size: 12px;">
-          Sent from bleedinginktattoo.com contact form. Deposit reminder: $${DEPOSIT_MIN} non-refundable.
-        </p>
-      `,
+    // Use the Resend REST API directly — works in both Node and Workers runtimes
+    const resp = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromAddress,
+        to: toEmail,
+        reply_to: submission.email,
+        subject: subjectLine,
+        html,
+      }),
     });
 
-    if (error) {
-      console.error("[contact] Resend error:", error);
-      return { ok: false, error: "Couldn't send your message — please try again or call us directly." };
+    if (!resp.ok) {
+      const body = await resp.text();
+      console.error("[contact] Resend error:", resp.status, body);
+      return { ok: false, error: "Couldn’t send your message — please try again or call us directly." };
     }
 
     return { ok: true };
