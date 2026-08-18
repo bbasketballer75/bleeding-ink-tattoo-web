@@ -236,8 +236,14 @@ export default function HomePage() {
                 <div>{SHOP.address.street}{SHOP.address.suite ? `, ${SHOP.address.suite}` : ""}</div>
                 <div>{SHOP.address.city}, {SHOP.address.state} {SHOP.address.zip}</div>
                 <div style={{ marginTop: 16, fontSize: 24, fontWeight: 700, color: BLEED_RED }}>
-                  {SHOP.phone.display}
-                </div>
+                                  <a
+                                    href={`tel:${SHOP.phone.tel}`}
+                                    style={{ color: "inherit", textDecoration: "none" }}
+                                    aria-label={`Call Bleeding Ink at ${SHOP.phone.display}`}
+                                  >
+                                    {SHOP.phone.display}
+                                  </a>
+                                </div>
               </div>
               <div style={{ marginTop: 24 }}>
                 <a

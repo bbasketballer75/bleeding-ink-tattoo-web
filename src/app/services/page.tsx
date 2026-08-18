@@ -1,9 +1,10 @@
 /**
  * Services — /services.
  *
- * Lists every service with full descriptions. Pricing posture:
- * "DM for quote" — no hourly rates published (per Austin 2026-08-17).
- * Only the $65 non-refundable deposit is shown publicly.
+ * Lists every service with full descriptions + JSON-LD Service schema.
+ * Pricing posture per Austin 2026-08-17: no hourly rates published;
+ * visitor must contact for estimate. Only starting prices + $65 deposit
+ * shown publicly.
  */
 
 import type { Metadata } from "next";
@@ -14,25 +15,81 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCard from "@/components/ServiceCard";
 import { SERVICES } from "@/data/services";
-import { DEPOSIT_MIN, BLEED_RED } from "@/lib/constants";
+import { DEPOSIT_MIN, BLEED_RED, SHOP, SITE_URL } from "@/lib/constants";
 import { formatUSD } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "Services & Pricing",
-  description: 'Custom tattoos, coverups, color work, free consultations at Bleeding Ink in Johnstown, PA. Walk-ins welcome.',
+  description:
+    "Custom tattoos, coverups, color work, free consultations at Bleeding Ink in Johnstown, PA. Walk-ins welcome. Starting prices shown; final quotes at the free consultation.",
   path: "/services",
-    image: "/og/services.svg",});
+  image: "/og/services.svg",
+  keywords: [
+    "tattoo services johnstown pa",
+    "custom tattoo starting prices",
+    "coverup tattoo johnstown",
+    "color tattoo johnstown",
+    "free tattoo consultation johnstown",
+  ],
+});
+
+// JSON-LD: one Service entry per service in SERVICES, all under a TattooParlor
+const servicesJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TattooParlor",
+      "@id": `${SITE_URL}/#tattooparlor`,
+      name: SHOP.name,
+      url: SITE_URL,
+      telephone: SHOP.phone.display,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: SHOP.address.street,
+        addressLocality: SHOP.address.city,
+        addressRegion: SHOP.address.state,
+        postalCode: SHOP.address.zip,
+        addressCountry: "US",
+      },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Tattoo Services",
+        itemListElement: SERVICES.map((s) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: s.name,
+            description: s.shortDescription,
+            url: `${SITE_URL}/services#${s.slug}`,
+            provider: { "@id": `${SITE_URL}/#tattooparlor` },
+          },
+          ...(s.startingPrice && {
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              priceCurrency: "USD",
+              description: s.startingPrice,
+            },
+          }),
+        })),
+      },
+    },
+  ],
+} as const;
 
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
+
       <Hero
         variant="compact"
         headline="Services"
         tagline="Custom work, coverups, color. Every piece starts with a free conversation."
       />
 
-      
       {/* Breadcrumbs */}
       <Breadcrumbs items={[
         { label: "Home", href: "/" },
@@ -44,7 +101,7 @@ export default function ServicesPage() {
           <SectionHeading
             eyebrow="What We Do"
             heading={`${SERVICES.length} core services`}
-            body="From coverups to color work, we do it all. Bring a photo, a description, or a feeling — we'll work it out together."
+            body="From coverups to color work, we do it all. Bring a photo, a description, or a feeling — we'll work it out together. Starting prices shown below; final quotes at the free consultation."
           />
           <div
             style={{
@@ -54,7 +111,9 @@ export default function ServicesPage() {
             }}
           >
             {SERVICES.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
+              <div key={service.slug} id={service.slug}>
+                <ServiceCard service={service} />
+              </div>
             ))}
           </div>
         </div>
@@ -65,7 +124,7 @@ export default function ServicesPage() {
         <div style={{ maxWidth: 960, margin: "0 auto" }}>
           <SectionHeading
             eyebrow="Pricing"
-            heading="DM for quote · ${formatUSD(DEPOSIT_MIN)} to book"
+            heading={`DM for quote · ${formatUSD(DEPOSIT_MIN)} to book`}
             body="Every piece is different. Hourly rates depend on size, detail, placement, and style — we'll give you a realistic quote at the consultation. The deposit is the only number we publish, and it's non-refundable."
           />
 

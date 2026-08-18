@@ -18,8 +18,9 @@ const QUICK_LINKS = [
   { href: "/services",  label: "Services" },
   { href: "/faq",       label: "FAQ" },
   { href: "/contact",   label: "Contact" },
-  { href: "/aftercare", label: "Aftercare" },
-  { href: "/book",      label: "Book a session" },
+    { href: "/aftercare", label: "Aftercare" },
+    { href: "/legal",     label: "Privacy & Terms" },
+    { href: "/book",      label: "Book a session" },
 ];
 
 const SOCIAL_LINKS = [

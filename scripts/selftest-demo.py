@@ -22,6 +22,7 @@ ROUTES = [
     ("/book",              ["consultation", "deposit", "Isiah"]),
     ("/contact",           ["contact", "form", "215"]),
     ("/aftercare",         ["aftercare", "24", "healing"]),
+    ("/legal",             ["Privacy", "Terms", "deposit"]),
     ("/sitemap.xml",       ["<urlset", "bleedinginktattoo.com"]),
     ("/robots.txt",        ["User-Agent", "Sitemap"]),
     ("/og-default.svg",    ["<svg"]),
