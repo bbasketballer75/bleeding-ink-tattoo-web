@@ -3880,7 +3880,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-      "bytes": 63287,
+      "bytes": 69343,
       "imports": [
         {
           "path": "path",
@@ -4495,7 +4495,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/chunks/ssr/_1wkvxcy._.js": {
-      "bytes": 57848,
+      "bytes": 57886,
       "imports": [],
       "format": "cjs"
     },
@@ -4539,6 +4539,26 @@
       "imports": [],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_1xefvqg._.js": {
+      "bytes": 13502,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_aftercare_page_actions_0n2b7ex.js": {
+      "bytes": 121,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js": {
+      "bytes": 343,
+      "imports": [],
+      "format": "cjs"
+    },
+    ".open-next/server-functions/default/.next/server/chunks/ssr/src_components_1ez28ue._.js": {
+      "bytes": 2920,
+      "imports": [],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/.next/server/chunks/ssr/_18m6z_-._.js": {
       "bytes": 7817,
       "imports": [],
@@ -4546,11 +4566,6 @@
     },
     ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_artists_page_actions_1iqhwh-.js": {
       "bytes": 119,
-      "imports": [],
-      "format": "cjs"
-    },
-    ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js": {
-      "bytes": 343,
       "imports": [],
       "format": "cjs"
     },
@@ -4701,7 +4716,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
-      "bytes": 41997,
+      "bytes": 42699,
       "imports": [
         {
           "path": "worker_threads",
@@ -4804,6 +4819,26 @@
           "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/src_app_not-found_tsx_1863-sq._.js"
         },
         {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_1xefvqg._.js",
+          "kind": "require-call",
+          "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/_1xefvqg._.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_aftercare_page_actions_0n2b7ex.js",
+          "kind": "require-call",
+          "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_aftercare_page_actions_0n2b7ex.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js",
+          "kind": "require-call",
+          "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/src_components_1ez28ue._.js",
+          "kind": "require-call",
+          "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/src_components_1ez28ue._.js"
+        },
+        {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_18m6z_-._.js",
           "kind": "require-call",
           "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/_18m6z_-._.js"
@@ -4812,11 +4847,6 @@
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_artists_page_actions_1iqhwh-.js",
           "kind": "require-call",
           "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_artists_page_actions_1iqhwh-.js"
-        },
-        {
-          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js",
-          "kind": "require-call",
-          "original": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/chunks/ssr/src_components_Hero_tsx_0k7_1wu._.js",
@@ -4969,6 +4999,17 @@
       ],
       "format": "cjs"
     },
+    ".open-next/server-functions/default/.next/server/app/aftercare/page.js": {
+      "bytes": 833,
+      "imports": [
+        {
+          "path": ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js",
+          "kind": "require-call",
+          "original": "../../chunks/ssr/[turbopack]_runtime.js"
+        }
+      ],
+      "format": "cjs"
+    },
     ".open-next/server-functions/default/.next/server/app/portfolio/page.js": {
       "bytes": 831,
       "imports": [
@@ -5047,7 +5088,7 @@
       "format": "cjs"
     },
     ".open-next/server-functions/default/node_modules/next/dist/server/require.js": {
-      "bytes": 6600,
+      "bytes": 6846,
       "imports": [
         {
           "path": "path",
@@ -5108,6 +5149,11 @@
           "path": ".open-next/server-functions/default/.next/server/app/_not-found/page.js",
           "kind": "require-call",
           "original": "C:\\Users\\bbask\\Coding_Projects\\bleeding-ink-tattoo-web\\.open-next\\server-functions\\default\\.next\\server\\app\\_not-found\\page.js"
+        },
+        {
+          "path": ".open-next/server-functions/default/.next/server/app/aftercare/page.js",
+          "kind": "require-call",
+          "original": "C:\\Users\\bbask\\Coding_Projects\\bleeding-ink-tattoo-web\\.open-next\\server-functions\\default\\.next\\server\\app\\aftercare\\page.js"
         },
         {
           "path": ".open-next/server-functions/default/.next/server/app/portfolio/page.js",
@@ -6378,7 +6424,7 @@
       "format": "esm"
     },
     ".open-next/server-functions/default/index.mjs": {
-      "bytes": 89874,
+      "bytes": 90530,
       "imports": [
         {
           "path": "node:module",
@@ -7720,7 +7766,7 @@
           "bytesInOutput": 586
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/load-manifest.external.js": {
-          "bytesInOutput": 48187
+          "bytesInOutput": 53111
         },
         ".open-next/cloudflare-templates/shims/throw.js": {
           "bytesInOutput": 215
@@ -7807,7 +7853,7 @@
           "bytesInOutput": 2344
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_1wkvxcy._.js": {
-          "bytesInOutput": 59013
+          "bytesInOutput": 59051
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_1wxl3hk._.js": {
           "bytesInOutput": 131605
@@ -7833,14 +7879,23 @@
         ".open-next/server-functions/default/.next/server/chunks/ssr/src_app_not-found_tsx_1863-sq._.js": {
           "bytesInOutput": 901
         },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_1xefvqg._.js": {
+          "bytesInOutput": 13695
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_aftercare_page_actions_0n2b7ex.js": {
+          "bytesInOutput": 269
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js": {
+          "bytesInOutput": 505
+        },
+        ".open-next/server-functions/default/.next/server/chunks/ssr/src_components_1ez28ue._.js": {
+          "bytesInOutput": 3055
+        },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_18m6z_-._.js": {
           "bytesInOutput": 7951
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_artists_page_actions_1iqhwh-.js": {
           "bytesInOutput": 264
-        },
-        ".open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892.js": {
-          "bytesInOutput": 505
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/src_components_Hero_tsx_0k7_1wu._.js": {
           "bytesInOutput": 2330
@@ -7909,7 +7964,7 @@
           "bytesInOutput": 7682
         },
         ".open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js": {
-          "bytesInOutput": 18290
+          "bytesInOutput": 18601
         },
         ".open-next/server-functions/default/.next/server/app/artists/[slug]/page.js": {
           "bytesInOutput": 998
@@ -7919,6 +7974,9 @@
         },
         ".open-next/server-functions/default/.next/server/app/_not-found/page.js": {
           "bytesInOutput": 872
+        },
+        ".open-next/server-functions/default/.next/server/app/aftercare/page.js": {
+          "bytesInOutput": 945
         },
         ".open-next/server-functions/default/.next/server/app/portfolio/page.js": {
           "bytesInOutput": 943
@@ -7936,13 +7994,13 @@
           "bytesInOutput": 889
         },
         ".open-next/server-functions/default/.next/server/app/faq/page.js": {
-          "bytesInOutput": 927
+          "bytesInOutput": 928
         },
         ".open-next/server-functions/default/.next/server/app/page.js": {
           "bytesInOutput": 916
         },
         ".open-next/server-functions/default/node_modules/next/dist/server/require.js": {
-          "bytesInOutput": 3669
+          "bytesInOutput": 3760
         },
         ".open-next/server-functions/default/node_modules/next/dist/lib/wait.js": {
           "bytesInOutput": 341
@@ -8095,10 +8153,10 @@
           "bytesInOutput": 5074
         },
         ".open-next/server-functions/default/index.mjs": {
-          "bytesInOutput": 62831
+          "bytesInOutput": 63397
         }
       },
-      "bytes": 2941031
+      "bytes": 2964926
     }
   }
 }
