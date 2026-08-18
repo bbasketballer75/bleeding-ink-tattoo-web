@@ -56,7 +56,9 @@ npm run lint    # ESLint check
 
 There are **no tests** in this project. No test runner is installed.
 
-## Known Pitfalls (carried over from jadas-jazz-cafe-web — DO NOT REGRESS)
+## Known Pitfalls (carry over from jadas-jazz-cafe-web + new discoveries)
+
+- **Tailwind v4 + lightningcss + Windows**: First `next dev` against a fresh project may fail every request with `node process exited with exit code: 0xc0000142` (Turbopack lightningcss worker DLL init failure). Workaround: use `npx next build && npx next start` for local verification instead of `next dev`. Build, deploy, and Vercel all unaffected. (Confirmed 2026-08-17 against this project; jadas-jazz-cafe-web works in dev because the worker was already spawned by a previous session.)
 
 1. **`jsx: "preserve"` is NOT needed** — we use default `"react-jsx"`. Don't change to `"preserve"`.
 2. **No `global-error.tsx`** — Next 16 App Router is incompatible.
