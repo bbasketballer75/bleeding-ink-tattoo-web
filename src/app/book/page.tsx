@@ -55,6 +55,31 @@ export default function BookPage() {
         >
           {/* Left: form */}
           <div>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: 26,
+                margin: 0,
+                marginBottom: 8,
+                color: BONE_WHITE,
+                textTransform: "uppercase",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Tell us about your idea
+            </h2>
+            <p
+              style={{
+                fontSize: 15,
+                lineHeight: 1.6,
+                color: BONE_WHITE,
+                opacity: 0.7,
+                margin: 0,
+                marginBottom: 24,
+              }}
+            >
+              The more detail — style, size, placement, references — the faster we can give you a useful reply.
+            </p>
             <ConsultationForm />
           </div>
 
@@ -69,7 +94,7 @@ export default function BookPage() {
                 marginBottom: 24,
               }}
             >
-              <h3
+              <h2
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: 22,
@@ -81,7 +106,7 @@ export default function BookPage() {
                 }}
               >
                 What happens next
-              </h3>
+              </h2>
               <ol style={{ margin: 0, padding: 0, listStyle: "none", counterReset: "step" }}>
                 {[
                   "We'll reply within 1 business day with questions or a time to chat.",
@@ -132,7 +157,7 @@ export default function BookPage() {
                 borderRadius: 2,
               }}
             >
-              <h4
+              <h3
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: 18,
@@ -143,7 +168,7 @@ export default function BookPage() {
                 }}
               >
                 Deposit: $65 non-refundable
-              </h4>
+              </h3>
               <p style={{ fontSize: 13, lineHeight: 1.55, margin: 0, opacity: 0.95 }}>
                 Applies to the final cost. Cancels inside 48 hours forfeit the deposit. Reschedule free with 48+ hours notice.
               </p>

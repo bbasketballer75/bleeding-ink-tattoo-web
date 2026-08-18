@@ -13,14 +13,15 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import PortfolioGrid from "@/components/PortfolioGrid";
 import Button from "@/components/Button";
 import Link from "next/link";
-import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
+import { BONE_WHITE } from "@/lib/constants";
 
 export const metadata = buildMetadata({
   title: "Portfolio",
   description:
     "Browse portfolio pieces by Isiah Jackson and Courtney Fetzer — traditional, fine line, blackwork, neo-traditional, coverups, and color work. Filter by style.",
   path: "/portfolio",
-    image: "/og/portfolio.svg",  keywords: [
+  image: "/og/portfolio.svg",
+  keywords: [
     "tattoo portfolio johnstown pa",
     "traditional tattoos johnstown",
     "fine line tattoos",
@@ -39,7 +40,6 @@ export default function PortfolioPage() {
         tagline="Custom pieces by Isiah and Courtney. Filter by style — see something you like? Drop us a line."
       />
 
-      
       {/* Breadcrumbs */}
       <Breadcrumbs items={[
         { label: "Home", href: "/" },
@@ -48,6 +48,34 @@ export default function PortfolioPage() {
 
       <section style={{ padding: "60px 20px", background: "#0A0A0A" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(28px, 4vw, 38px)",
+              margin: 0,
+              marginBottom: 16,
+              color: BONE_WHITE,
+              textTransform: "uppercase",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            The Studio Collection
+          </h2>
+          <p
+            style={{
+              fontSize: 15,
+              lineHeight: 1.6,
+              color: BONE_WHITE,
+              opacity: 0.7,
+              maxWidth: 720,
+              margin: 0,
+              marginBottom: 32,
+            }}
+          >
+            A curated sample of recent work across our core styles. Tap a filter
+            to narrow by aesthetic — every piece here was designed, drawn, and
+            inked in-studio at the Johnstown Galleria.
+          </p>
           <PortfolioGrid />
         </div>
       </section>

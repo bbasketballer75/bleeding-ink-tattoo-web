@@ -2,10 +2,11 @@
  * Navbar — site header with sticky behavior, mobile drawer, tap-to-call.
  *
  * - Logo/wordmark left (links to /)
- * - Center nav: Artists · Portfolio · Services · FAQ · Contact · Book
+ * - Center nav: Artists · Portfolio · Services · FAQ · Aftercare · Contact · Book
  * - Right: tap-to-call phone (desktop) / hamburger (mobile)
  * - Sticky on scroll: transparent at top, ink-black backdrop after scroll
  * - Mobile: hamburger opens drawer with same nav links
+ * - Active link gets aria-current="page" for a11y + visual underline
  */
 
 "use client";
@@ -21,7 +22,7 @@ const NAV_LINKS = [
   { href: "/portfolio", label: "Portfolio" },
   { href: "/services",  label: "Services" },
   { href: "/faq",       label: "FAQ" },
-  { href: "/aftercare",  label: "Aftercare" },
+  { href: "/aftercare", label: "Aftercare" },
   { href: "/contact",   label: "Contact" },
   { href: "/book",      label: "Book" },
 ] as const;
@@ -56,6 +57,16 @@ export default function Navbar() {
     };
   }, [drawerOpen]);
 
+  // Escape key closes drawer
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDrawerOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [drawerOpen]);
+
   const headerStyle: React.CSSProperties = {
     position: "fixed",
     top: 0,
@@ -66,6 +77,9 @@ export default function Navbar() {
     transition: "background 0.2s ease",
     borderBottom: scrolled ? `1px solid rgba(${BLEED_RED.slice(1).match(/.{2}/g)?.map((h) => parseInt(h, 16)).join(", ")}, 0.3)` : "none",
   };
+
+  const isCurrent = (href: string) =>
+    pathname === href || (pathname?.startsWith(`${href}/`) ?? false);
 
   return (
     <>
@@ -95,6 +109,7 @@ export default function Navbar() {
               textTransform: "uppercase",
               whiteSpace: "nowrap",
             }}
+            aria-label="Bleeding Ink — Home"
           >
             Bleeding <span style={{ color: BLEED_RED }}>Ink</span>
           </Link>
@@ -109,12 +124,13 @@ export default function Navbar() {
             }}
           >
             {NAV_LINKS.map((link) => {
-              const active = pathname === link.href || (pathname?.startsWith(`${link.href}/`) ?? false);
+              const active = isCurrent(link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className="nav-link"
+                  aria-current={active ? "page" : undefined}
                   style={{
                     opacity: active ? 1 : 0.85,
                     borderBottom: active ? `2px solid ${BLEED_RED}` : "2px solid transparent",
@@ -146,10 +162,9 @@ export default function Navbar() {
               border: `2px solid ${BLEED_RED}`,
               transition: "background 0.15s ease, color 0.15s ease",
             }}
-            aria-label={`Call ${SHOP.name}`}
           >
-            <span aria-hidden>📞</span>
-            <span>{SHOP.phone.display}</span>
+            <span aria-hidden="true">📞</span>
+            <span>Call {SHOP.phone.display}</span>
           </a>
 
           {/* Hamburger (mobile) */}
@@ -159,6 +174,7 @@ export default function Navbar() {
             onClick={() => setDrawerOpen(true)}
             aria-label="Open menu"
             aria-expanded={drawerOpen}
+            aria-controls="mobile-drawer"
             style={{
               display: "none",
               alignItems: "center",
@@ -172,7 +188,7 @@ export default function Navbar() {
               padding: 0,
             }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <line x1="3" y1="6" x2="21" y2="6" />
               <line x1="3" y1="12" x2="21" y2="12" />
               <line x1="3" y1="18" x2="21" y2="18" />
@@ -187,6 +203,7 @@ export default function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label="Site navigation"
+          id="mobile-drawer"
           style={{
             position: "fixed",
             inset: 0,
@@ -226,20 +243,21 @@ export default function Navbar() {
                 padding: 0,
               }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <line x1="6" y1="6" x2="18" y2="18" />
                 <line x1="18" y1="6" x2="6" y2="18" />
               </svg>
             </button>
           </div>
 
-          <nav style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          <nav style={{ display: "flex", flexDirection: "column", gap: 0 }} aria-label="Mobile">
             {NAV_LINKS.map((link) => {
-              const active = pathname === link.href || (pathname?.startsWith(`${link.href}/`) ?? false);
+              const active = isCurrent(link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
+                  aria-current={active ? "page" : undefined}
                   style={{
                     fontFamily: "var(--font-display)",
                     fontSize: 40,
@@ -275,10 +293,9 @@ export default function Navbar() {
                 letterSpacing: "0.02em",
                 textTransform: "uppercase",
               }}
-              aria-label={`Call ${SHOP.name}`}
             >
-              <span aria-hidden>📞</span>
-              <span>{SHOP.phone.display}</span>
+              <span aria-hidden="true">📞</span>
+              <span>Call {SHOP.phone.display}</span>
             </a>
           </div>
         </div>

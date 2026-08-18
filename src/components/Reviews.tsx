@@ -102,8 +102,12 @@ export default function Reviews() {
             }}
           >
             <div style={{ marginBottom: 16 }}>
-              {/* Star rating */}
-              <div style={{ display: "flex", gap: 2, marginBottom: 16 }} aria-label={`${review.rating} out of 5 stars`}>
+              {/* Star rating — div with role="img" so aria-label is valid */}
+              <div
+                role="img"
+                aria-label={`${review.rating} out of 5 stars`}
+                style={{ display: "flex", gap: 2, marginBottom: 16 }}
+              >
                 {Array.from({ length: 5 }).map((_, j) => (
                   <span
                     key={j}
@@ -112,7 +116,7 @@ export default function Reviews() {
                       fontSize: 18,
                       lineHeight: 1,
                     }}
-                    aria-hidden
+                    aria-hidden="true"
                   >
                     ★
                   </span>
