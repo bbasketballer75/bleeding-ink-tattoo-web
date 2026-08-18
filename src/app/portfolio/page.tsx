@@ -20,7 +20,7 @@ export const metadata = buildMetadata({
   description:
     "Browse portfolio pieces by Isiah Jackson and Courtney Fetzer — traditional, fine line, blackwork, neo-traditional, coverups, and color work. Filter by style.",
   path: "/portfolio",
-  keywords: [
+    image: "/og/portfolio.svg",  keywords: [
     "tattoo portfolio johnstown pa",
     "traditional tattoos johnstown",
     "fine line tattoos",

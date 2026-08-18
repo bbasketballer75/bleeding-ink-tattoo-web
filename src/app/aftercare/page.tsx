@@ -29,7 +29,7 @@ export const metadata = buildMetadata({
   description:
     "Complete tattoo aftercare guide from Bleeding Ink in Johnstown, PA. First 24 hours, washing, moisturizing, sun exposure, swimming, signs of infection, and the full healing timeline.",
   path: "/aftercare",
-  keywords: [
+    image: "/og/aftercare.svg",  keywords: [
     "tattoo aftercare",
     "tattoo healing",
     "tattoo aftercare instructions",

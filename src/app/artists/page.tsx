@@ -14,7 +14,7 @@ export const metadata = buildMetadata({
   title: "Our Artists",
   description: "Meet the artists at Bleeding Ink Tattooing in Johnstown, PA. Custom tattoos, coverups, color work, apprentices.",
   path: "/artists",
-});
+    image: "/og/artists.svg",});
 
 export default function ArtistsPage() {
   return (

@@ -21,7 +21,7 @@ export const metadata = buildMetadata({
   title: "Services & Pricing",
   description: 'Custom tattoos, coverups, color work, free consultations at Bleeding Ink in Johnstown, PA. Walk-ins welcome.',
   path: "/services",
-});
+    image: "/og/services.svg",});
 
 export default function ServicesPage() {
   return (

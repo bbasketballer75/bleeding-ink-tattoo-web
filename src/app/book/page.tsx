@@ -18,7 +18,7 @@ export const metadata = buildMetadata({
   description:
     "Book a free consultation or tattoo session at Bleeding Ink in Johnstown, PA. Tell us your idea, size, placement, and preferred artist. We'll respond within 1 business day.",
   path: "/book",
-  keywords: [
+    image: "/og/book.svg",  keywords: [
     "book tattoo johnstown pa",
     "tattoo consultation johnstown",
     "tattoo appointment johnstown",

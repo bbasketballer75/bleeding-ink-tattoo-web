@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${artist.name} — ${artist.role}`,
     description: artist.bio,
     path: `/artists/${artist.slug}`,
-  });
+    image: "/og/artists.svg",  });
 }
 
 export default async function ArtistDetailPage({ params }: PageProps) {

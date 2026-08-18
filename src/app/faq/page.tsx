@@ -18,7 +18,7 @@ export const metadata = buildMetadata({
   title: "FAQ",
   description: 'Common questions about Bleeding Ink in Johnstown, PA — walk-ins, $65 deposit, ages, aftercare, coverups.',
   path: "/faq",
-});
+    image: "/og/default.svg",});
 
 const faqJsonLd = {
   "@context": "https://schema.org",

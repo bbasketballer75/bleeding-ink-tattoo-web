@@ -19,7 +19,7 @@ export const metadata = buildMetadata({
   title: "Contact",
   description: 'Get in touch with Bleeding Ink in Johnstown, PA. Phone (215) 980-1386, hours, location at the Johnstown Galleria, and consultation form.',
   path: "/contact",
-});
+    image: "/og/default.svg",});
 
 export default function ContactPage() {
   return (
