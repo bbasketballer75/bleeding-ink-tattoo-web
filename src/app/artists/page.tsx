@@ -5,6 +5,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
 import ArtistCard from "@/components/ArtistCard";
 import { ARTISTS } from "@/data/artists";
@@ -23,6 +24,13 @@ export default function ArtistsPage() {
         headline="Artists"
         tagline="Custom work, coverups, color. Each artist brings their own style — pick the one who fits your idea."
       />
+      
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[
+        { label: "Home", href: "/" },
+        { label: "Artists", href: "/artists" }
+      ]} />
+
       <section style={{ padding: "60px 24px 80px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <SectionHeading

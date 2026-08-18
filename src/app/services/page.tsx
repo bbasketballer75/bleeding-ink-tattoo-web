@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCard from "@/components/ServiceCard";
 import { SERVICES } from "@/data/services";
@@ -30,6 +31,13 @@ export default function ServicesPage() {
         headline="Services"
         tagline="Custom work, coverups, color. Every piece starts with a free conversation."
       />
+
+      
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[
+        { label: "Home", href: "/" },
+        { label: "Services", href: "/services" }
+      ]} />
 
       <section style={{ padding: "60px 24px 40px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>

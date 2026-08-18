@@ -9,6 +9,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
 import ContactForm from "./ContactForm";
 import { SHOP, BLEED_RED, BONE_WHITE } from "@/lib/constants";
@@ -28,6 +29,13 @@ export default function ContactPage() {
         headline="Get in Touch"
         tagline="Free consultation, no obligation. Drop a message and we'll get back within 2 business days."
       />
+
+      
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[
+        { label: "Home", href: "/" },
+        { label: "Contact", href: "/contact" }
+      ]} />
 
       <section style={{ padding: "60px 24px 80px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>

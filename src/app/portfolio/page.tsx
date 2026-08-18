@@ -9,6 +9,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import PortfolioGrid from "@/components/PortfolioGrid";
 import Button from "@/components/Button";
 import Link from "next/link";
@@ -37,6 +38,13 @@ export default function PortfolioPage() {
         headline="OUR WORK"
         tagline="Custom pieces by Isiah and Courtney. Filter by style — see something you like? Drop us a line."
       />
+
+      
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[
+        { label: "Home", href: "/" },
+        { label: "Portfolio", href: "/portfolio" }
+      ]} />
 
       <section style={{ padding: "60px 20px", background: "#0A0A0A" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>

@@ -9,6 +9,7 @@ import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { ARTISTS, getArtist } from "@/data/artists";
 import { SHOP, BLEED_RED, SITE_URL } from "@/lib/constants";
 
@@ -51,7 +52,15 @@ export default async function ArtistDetailPage({ params }: PageProps) {
         tagline={`${artist.role} · ${artist.joinedYear > 2024 ? `Joined ${artist.joinedYear}` : "Owner"}`}
       />
 
-      <section style={{ padding: "60px 24px 80px" }}>
+      
+        {/* Breadcrumbs */}
+        <Breadcrumbs items={[
+          { label: "Home", href: "/" },
+          { label: "Artists", href: "/artists" },
+          { label: artist.name, href: `/artists/${artist.slug}` },
+        ]} />
+
+        <section style={{ padding: "60px 24px 80px" }}>
         <div
           style={{
             maxWidth: 960,

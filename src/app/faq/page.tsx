@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
 import { FAQS } from "@/data/faqs";
 import { SITE_URL } from "@/lib/constants";
@@ -46,6 +47,13 @@ export default function FaqPage() {
         headline="FAQ"
         tagline="Everything you might want to know before stopping by."
       />
+
+      
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[
+        { label: "Home", href: "/" },
+        { label: "FAQ", href: "/faq" }
+      ]} />
 
       <section style={{ padding: "60px 24px 80px" }}>
         <div style={{ maxWidth: 880, margin: "0 auto" }}>

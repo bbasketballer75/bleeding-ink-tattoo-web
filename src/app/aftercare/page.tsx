@@ -19,6 +19,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import TocList from "@/components/TocList";
 import Link from "next/link";
 import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
@@ -186,6 +187,13 @@ export default function AftercarePage() {
       </nav>
 
       {/* Sections */}
+      
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[
+        { label: "Home", href: "/" },
+        { label: "Aftercare", href: "/aftercare" }
+      ]} />
+
       <section style={{ padding: "60px 20px 80px", background: "#0A0A0A", color: BONE_WHITE }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           {SECTIONS.map((s, i) => (

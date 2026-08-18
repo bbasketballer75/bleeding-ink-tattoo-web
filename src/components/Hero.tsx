@@ -13,6 +13,7 @@
 
 import Link from "next/link";
 import { BLEED_RED, BONE_WHITE, INK_BLACK } from "@/lib/constants";
+import HeroBackdrop from "./HeroBackdrop";
 
 interface HeroProps {
   variant?: "home" | "compact";
@@ -52,10 +53,13 @@ export default function Hero({
         backgroundPosition: "center",
         padding: "120px 24px 60px",
         overflow: "hidden",
-      }}
-    >
-      {/* Top drip accent — only on home */}
-      {!isCompact && (
+            }}
+          >
+            {/* Custom SVG backdrop art */}
+            <HeroBackdrop />
+
+            {/* Top drip accent — only on home */}
+            {!isCompact && (
         <svg
           aria-hidden
           viewBox="0 0 32 48"

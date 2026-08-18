@@ -9,6 +9,7 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Hero from "@/components/Hero";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ConsultationForm from "./ConsultationForm";
 import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
 
@@ -34,6 +35,13 @@ export default function BookPage() {
         headline="BOOK A SESSION"
         tagline="Free consultation first. We'll go over your idea, sizing, placement, and schedule — no commitment required to chat."
       />
+
+      
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[
+        { label: "Home", href: "/" },
+        { label: "Book a Session", href: "/book" }
+      ]} />
 
       <section style={{ padding: "60px 20px", background: "#0A0A0A" }}>
         <div
