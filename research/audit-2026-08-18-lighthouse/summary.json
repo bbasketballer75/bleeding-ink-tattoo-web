@@ -1,0 +1,166 @@
+[
+  {
+    "route": "/faq",
+    "a11y": 100,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 1,
+    "failed": [
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_faq.json"
+  },
+  {
+    "route": "/aftercare",
+    "a11y": 96,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 2,
+    "failed": [
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
+        "score": 0
+      },
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_aftercare.json"
+  },
+  {
+    "route": "/contact",
+    "a11y": 100,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 1,
+    "failed": [
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_contact.json"
+  },
+  {
+    "route": "/book",
+    "a11y": 98,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 2,
+    "failed": [
+      {
+        "id": "heading-order",
+        "title": "Heading elements are not in a sequentially-descending order",
+        "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more about heading order](https://dequeuniversity.com/rules/axe/4.11/heading-order).",
+        "score": 0
+      },
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_book.json"
+  },
+  {
+    "route": "/services",
+    "a11y": 100,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 1,
+    "failed": [
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_services.json"
+  },
+  {
+    "route": "/portfolio",
+    "a11y": 94,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 3,
+    "failed": [
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
+        "score": 0
+      },
+      {
+        "id": "heading-order",
+        "title": "Heading elements are not in a sequentially-descending order",
+        "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more about heading order](https://dequeuniversity.com/rules/axe/4.11/heading-order).",
+        "score": 0
+      },
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_portfolio.json"
+  },
+  {
+    "route": "/artists",
+    "a11y": 100,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 1,
+    "failed": [
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_artists.json"
+  },
+  {
+    "route": "/",
+    "a11y": 91,
+    "best_practices": 100,
+    "seo": 100,
+    "failed_count": 3,
+    "failed": [
+      {
+        "id": "aria-prohibited-attr",
+        "title": "Elements use prohibited ARIA attributes",
+        "description": "Using ARIA attributes in roles where they are prohibited can mean that important information is not communicated to users of assistive technologies. [Learn more about prohibited ARIA roles](https://dequeuniversity.com/rules/axe/4.11/aria-prohibited-attr).",
+        "score": 0
+      },
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "description": "Low-contrast text is difficult or impossible for many users to read. [Learn how to provide sufficient color contrast](https://dequeuniversity.com/rules/axe/4.11/color-contrast).",
+        "score": 0
+      },
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "description": "Visible text labels that do not match the accessible name can result in a confusing experience for screen reader users. [Learn more about accessible names](https://dequeuniversity.com/rules/axe/4.11/label-content-name-mismatch).",
+        "score": 0
+      }
+    ],
+    "file": "C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/research/audit-2026-08-18-lighthouse\\lighthouse_mobile_.json"
+  }
+]
