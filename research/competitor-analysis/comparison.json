@@ -1,0 +1,10 @@
+{
+  "Lemon Bomb Tattoo Co. (Johnstown Square site)": {
+    "url": "https://lemonbombtattooco.square.site/",
+    "error": "HTTP 401"
+  },
+  "Bleeding Ink demo (us)": {
+    "url": "https://bleeding-ink-tattoo-web.inquiry-970.workers.dev/",
+    "error": "HTTP 401"
+  }
+}

@@ -2,16 +2,17 @@
  * Reviews — 3 testimonial cards on home page.
  *
  * Demo-only — all names/text are fabricated. In production, real reviews
- * would come from Google Business Profile API or be entered by the shop.
+ * would come from Google Business Profile API or be entered by the shop
+ * owner.
  */
 
-import { BONE_WHITE, BLEED_RED, BLEED_RED_BRIGHT } from "@/lib/constants";
+import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
 
 interface Review {
   name: string;
   location?: string;
   rating: number; // 1-5
-  style: string;  // style of work
+  style: string; // style of work
   text: string;
 }
 
@@ -50,7 +51,7 @@ export default function Reviews() {
             fontWeight: 700,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: BLEED_RED_BRIGHT,
+            color: "#E63946",
             margin: 0,
             marginBottom: 12,
           }}
@@ -133,7 +134,7 @@ export default function Reviews() {
                   fontStyle: "italic",
                 }}
               >
-                "{review.text}"
+                &ldquo;{review.text}&rdquo;
               </p>
             </div>
 
@@ -168,9 +169,9 @@ export default function Reviews() {
                   fontWeight: 700,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: BLEED_RED_BRIGHT,
-                  padding: "4px 8px",
-                  border: `1px solid ${BLEED_RED}`,
+                  color: BONE_WHITE,
+                  background: BLEED_RED,
+                  padding: "4px 10px",
                 }}
               >
                 {review.style}

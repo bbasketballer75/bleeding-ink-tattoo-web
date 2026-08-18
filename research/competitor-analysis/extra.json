@@ -1,0 +1,16 @@
+{
+  "https://lemonbombtattooco.square.site/": {
+    "title": "Home",
+    "description": "width=device-width, initial-scale=1, maximum-scale=1",
+    "word_count": 1
+  },
+  "https://lemonbombtattooco.square.site/about": {
+    "fetch_failed": true
+  },
+  "https://www.yelp.com/biz/total-commitment-tattooing-johnstown": {
+    "fetch_failed": true
+  },
+  "https://www.yellowpages.com/johnstown-pa/tattoos": {
+    "fetch_failed": true
+  }
+}

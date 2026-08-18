@@ -1,0 +1,12 @@
+{
+  "Bleeding Ink demo": {
+    "url": "https://bleeding-ink-tattoo-web.inquiry-970.workers.dev/",
+    "error": "navigate failed",
+    "raw": "event: message\ndata: {\"jsonrpc\":\"2.0\",\"id\":1,\"error\":{\"code\":-32601,\"message\":\"Method not found\"}}\n\n"
+  },
+  "Lemon Bomb (Square site)": {
+    "url": "https://lemonbombtattooco.square.site/",
+    "error": "navigate failed",
+    "raw": "event: message\ndata: {\"jsonrpc\":\"2.0\",\"id\":1,\"error\":{\"code\":-32601,\"message\":\"Method not found\"}}\n\n"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "Bleeding Ink demo": {
+    "url": "https://bleeding-ink-tattoo-web.inquiry-970.workers.dev/",
+    "title": "Bleeding Ink \u2014 Custom Tattoos in Johnstown, PA",
+    "description": "Custom tattoos, coverups, and color work at Bleeding Ink inside the Johnstown Galleria. Walk-ins welcome. Free consultation. $65 deposit.",
+    "h1s": [],
+    "h2_count": 5,
+    "nav_links_count": 44,
+    "word_count": 2589,
+    "images": 0,
+    "has_instagram": true,
+    "has_facebook": true,
+    "has_phone": true,
+    "has_email": false,
+    "has_booking": true,
+    "has_portfolio": true,
+    "has_pricing": true,
+    "has_aftercare": true,
+    "has_form": false,
+    "has_faq": true
+  },
+  "Lemon Bomb Tattoo Co": {
+    "url": "https://lemonbombtattooco.square.site/",
+    "title": "Home",
+    "description": "Custom Tattoo Shop in Johnstown Pennsylvania",
+    "h1s": [],
+    "h2_count": 0,
+    "nav_links_count": 0,
+    "word_count": 689,
+    "images": 0,
+    "has_instagram": true,
+    "has_facebook": true,
+    "has_phone": false,
+    "has_email": false,
+    "has_booking": true,
+    "has_portfolio": true,
+    "has_pricing": false,
+    "has_aftercare": true,
+    "has_form": false,
+    "has_faq": false
+  },
+  "Total Commitment Tattooing": {
+    "url": "https://www.facebook.com/tctattooing/",
+    "fetch_failed": true
+  },
+  "New Breed Tattoos": {
+    "url": "https://www.facebook.com/newbreedstattoos",
+    "fetch_failed": true
+  }
+}

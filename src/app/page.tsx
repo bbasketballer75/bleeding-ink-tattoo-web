@@ -1,51 +1,61 @@
 /**
- * Home page — /.
+ * Home — /
  *
- * Sections:
- *   1. Hero (full home variant)
- *   2. Intro strip (tagline + deposit reminder)
- *   3. Artists preview (grid of ArtistCard)
- *   4. Services preview (grid of ServiceCard)
- *   5. Reviews (3 testimonials)
- *   6. Instagram feed (6 mock posts)
- *   7. CTA strip (Book / Contact)
- *   8. Location (address + Google Maps embed)
+ * One-page summary. Sections (each is its own <section>):
+ *   1. Hero (compact variant)
+ *   2. Intro strip + $65 deposit
+ *   3. Artists preview (Isiah + Courtney)
+ *   4. Services preview (3 of 4)
+ *   5. Reviews (3 demos)
+ *   6. Instagram feed (6 mock cards)
+ *   7. CTA strip (Book + Contact)
+ *   8. Location (address + hours + map)
+ *
+ * Light sections (Artists/Services/Reviews/CTA/Location) have explicit
+ * `background: BONE_WHITE` so BLEED_RED labels pass WCAG AA on light bg.
+ * Dark sections (Hero/Intro/Instagram) inherit the body's dark bg.
  */
 
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
+import { SHOP, BLEED_RED, BONE_WHITE, DEPOSIT_MIN } from "@/lib/constants";
 import Hero from "@/components/Hero";
+import Reviews from "@/components/Reviews";
 import SectionHeading from "@/components/SectionHeading";
-import ArtistCard from "@/components/ArtistCard";
 import ServiceCard from "@/components/ServiceCard";
 import InstagramFeed from "@/components/InstagramFeed";
-import Reviews from "@/components/Reviews";
 import { ARTISTS } from "@/data/artists";
 import { SERVICES } from "@/data/services";
-import { SHOP, BLEED_RED, BONE_WHITE, DEPOSIT_MIN } from "@/lib/constants";
-import { mapsEmbedUrl, mapsLink, formatUSD } from "@/lib/utils";
+import { telLink, mapsEmbedUrl, mapsLink, formatUSD } from "@/lib/utils";
 
 export const metadata = buildMetadata({
-  title: `${SHOP.name} — Custom Tattoos in Johnstown, PA`,
+  title: "Bleeding Ink — Custom Tattoos in Johnstown, PA",
   description:
     "Custom tattoos, coverups, and color work at Bleeding Ink inside the Johnstown Galleria. Walk-ins welcome. Free consultation. $65 deposit.",
   path: "/",
+  image: "/og-default.svg",
+  keywords: [
+    "tattoo Johnstown PA",
+    "custom tattoos Johnstown",
+    "coverup tattoos",
+    "color work tattoo",
+    "walk-in tattoo shop",
+    "tattoo Johnstown Galleria",
+  ],
 });
 
 export default function HomePage() {
   return (
     <>
-      {/* === 1. Hero === */}
       <Hero
         variant="home"
-        headline="Bleeding Ink"
-        tagline="Custom tattoos, coverups, color work. Johnstown's shop since the rebrand. Walk-ins welcome, free consultation."
-        primaryCta={{ href: "/book", label: "Book a Session" }}
-        secondaryCta={{ href: "/portfolio", label: "See Our Work" }}
+        eyebrow="Bleeding Ink Tattooing"
+        headline="INK. NOT APOLOGIES."
+        tagline="Appointments preferred, walk-ins always welcome. Free consultation. Coverups our specialty. Color work our craft."
       />
 
-      {/* === 2. Intro strip === */}
+      {/* === 2. Intro strip — LIGHT bg ($65 deposit + value props) === */}
       <section style={{ background: BONE_WHITE, color: "var(--color-ink-black)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
           <p
@@ -56,7 +66,7 @@ export default function HomePage() {
               marginBottom: 24,
             }}
           >
-            {SHOP.tagline}
+            Appointments preferred, walk-ins always welcome.
           </p>
           <p style={{ fontSize: 18, lineHeight: 1.6, margin: 0, opacity: 0.85 }}>
             Custom pieces, coverups, and color work from a small team in the Johnstown Galleria. Walk in for a free consultation, or book ahead for custom work.{" "}
@@ -65,7 +75,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === 3. Artists preview === */}
+      {/* === 3. Artists preview — LIGHT bg === */}
       <section style={{ background: BONE_WHITE, color: "var(--color-ink-black)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>
@@ -88,22 +98,62 @@ export default function HomePage() {
               See all artists →
             </Link>
           </div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 32,
-            }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
             {ARTISTS.map((artist) => (
-              <ArtistCard key={artist.slug} artist={artist} />
+              <Link
+                key={artist.slug}
+                href={`/artists/${artist.slug}`}
+                style={{
+                  background: "var(--color-bone-white)",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  padding: 28,
+                  color: "var(--color-ink-black)",
+                  textDecoration: "none",
+                }}
+              >
+                <div
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: 28,
+                    background: BLEED_RED,
+                    color: BONE_WHITE,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "var(--font-display)",
+                    fontSize: 22,
+                    marginBottom: 16,
+                  }}
+                >
+                  {artist.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: 22,
+                    textTransform: "uppercase",
+                    margin: 0,
+                    marginBottom: 6,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {artist.name}
+                </h3>
+                <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  {artist.role}
+                </div>
+                <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.85 }}>
+                  {artist.specialties.slice(0, 3).join(" · ")}
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* === 4. Services preview === */}
-      <section style={{ padding: "80px 24px" }}>
+      {/* === 4. Services preview — LIGHT bg === */}
+      <section style={{ background: BONE_WHITE, color: "var(--color-ink-black)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>
             <SectionHeading
@@ -125,13 +175,7 @@ export default function HomePage() {
               See all services →
             </Link>
           </div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: 24,
-            }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
             {SERVICES.slice(0, 3).map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
@@ -139,22 +183,21 @@ export default function HomePage() {
         </div>
       </section>
 
-
-      {/* === 5. Reviews === */}
-      <section style={{ padding: "80px 24px" }}>
+      {/* === 5. Reviews — DARK bg (intentional for hero testimonial look) === */}
+      <section style={{ padding: "80px 24px", borderTop: "1px solid rgba(245, 241, 232, 0.08)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <Reviews />
         </div>
       </section>
 
-      {/* === 6. Instagram feed === */}
+      {/* === 6. Instagram feed — DARK bg === */}
       <section style={{ padding: "80px 24px", borderTop: "1px solid rgba(245, 241, 232, 0.08)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <InstagramFeed />
         </div>
       </section>
 
-      {/* === 5. CTA strip === */}
+      {/* === 7. CTA strip — BLEED_RED bg === */}
       <section
         style={{
           background: BLEED_RED,
@@ -164,21 +207,8 @@ export default function HomePage() {
         }}
       >
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(32px, 5vw, 52px)",
-              textTransform: "uppercase",
-              letterSpacing: "-0.02em",
-              margin: 0,
-              marginBottom: 16,
-              lineHeight: 0.95,
-            }}
-          >
-            Ready to get inked?
-          </h2>
-          <p style={{ fontSize: 18, margin: 0, marginBottom: 32, opacity: 0.95 }}>
-            Book a session or stop by for a free walk-in consultation. We're inside the Johnstown Galleria.
+          <p style={{ fontSize: 18, opacity: 0.95, margin: 0, marginBottom: 24 }}>
+            Ready to talk about your piece? Free consultation, no obligation.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center" }}>
             <Link
@@ -218,7 +248,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === 7. Location === */}
+      {/* === 8. Location — LIGHT bg === */}
       <section style={{ background: BONE_WHITE, color: "var(--color-ink-black)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div
@@ -236,14 +266,14 @@ export default function HomePage() {
                 <div>{SHOP.address.street}{SHOP.address.suite ? `, ${SHOP.address.suite}` : ""}</div>
                 <div>{SHOP.address.city}, {SHOP.address.state} {SHOP.address.zip}</div>
                 <div style={{ marginTop: 16, fontSize: 24, fontWeight: 700, color: BLEED_RED }}>
-                                  <a
-                                    href={`tel:${SHOP.phone.tel}`}
-                                    style={{ color: "inherit", textDecoration: "none" }}
-                                    aria-label={`Call Bleeding Ink at ${SHOP.phone.display}`}
-                                  >
-                                    {SHOP.phone.display}
-                                  </a>
-                                </div>
+                  <a
+                    href={`tel:${SHOP.phone.tel}`}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                    aria-label={`Call Bleeding Ink at ${SHOP.phone.display}`}
+                  >
+                    {SHOP.phone.display}
+                  </a>
+                </div>
               </div>
               <div style={{ marginTop: 24 }}>
                 <a
@@ -261,7 +291,7 @@ export default function HomePage() {
               <iframe
                 src={mapsEmbedUrl()}
                 width="100%"
-                height="380"
+                height="240"
                 style={{ border: 0, display: "block" }}
                 allowFullScreen
                 loading="lazy"
