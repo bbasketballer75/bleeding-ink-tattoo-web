@@ -155,7 +155,7 @@ export default function Reviews() {
                   {review.name}
                 </div>
                 {review.location && (
-                  <div style={{ fontSize: 12, opacity: 0.6 }}>{review.location}</div>
+                  <div style={{ fontSize: 12, opacity: 0.6, color: BONE_WHITE }}>{review.location}</div>
                 )}
               </div>
               <div

@@ -46,7 +46,7 @@ export default function HomePage() {
       />
 
       {/* === 2. Intro strip === */}
-      <section style={{ padding: "80px 24px" }}>
+      <section style={{ background: BONE_WHITE, color: "var(--color-ink-black)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
           <p
             style={{
