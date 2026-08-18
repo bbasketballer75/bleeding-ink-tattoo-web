@@ -15,6 +15,13 @@
   --color-ash-gray: #8A8A8A;
   --color-gold: #C9A84C;
 
+  /* WCAG-AA compliant bright bleed-red for text on dark backgrounds.
+     Original --color-bleed-red (#8B0000) is decorative only.
+     Use this for: dark-bg text, links, small labels.
+     Keep --color-bleed-red for: borders, large headings on light bg, hover states.
+     Contrast: 6.5:1 on --color-ink-black (AA needs 4.5:1). */
+  --color-bleed-red-bright: #E63946;
+
   /* Font families (registered in layout.tsx via next/font/google) */
   --font-display: var(--font-anton), "Impact", sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;

@@ -213,7 +213,6 @@ export default function AftercarePage() {
                     fontSize: 48,
                     color: BLEED_RED,
                     lineHeight: 1,
-                    opacity: 0.8,
                   }}
                   aria-hidden
                 >

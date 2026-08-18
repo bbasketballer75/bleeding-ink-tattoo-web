@@ -1,6 +1,6 @@
 // No <html> wrapper here (Next.js 16 App Router gotcha — see AGENTS.md).
 import Link from "next/link";
-import { BLEED_RED, BONE_WHITE } from "@/lib/constants";
+import { BLEED_RED, BLEED_RED_BRIGHT, BONE_WHITE } from "@/lib/constants";
 
 const QUICK_LINKS = [
   { href: "/portfolio", label: "Portfolio", desc: "Recent work" },
@@ -39,7 +39,7 @@ export default function NotFound() {
           fontWeight: 700,
           letterSpacing: "0.2em",
           textTransform: "uppercase",
-          color: BLEED_RED,
+          color: BLEED_RED_BRIGHT,
           margin: 0,
         }}
       >

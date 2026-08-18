@@ -6,10 +6,15 @@
  */
 
 // Brand colors (Street / Hustle direction — confirmed Austin 2026-08-17)
-export const BLEED_RED  = "#8B0000";  // primary CTAs, accents, blood
+// Contrast check: BLEED_RED on INK_BLACK is 1.98:1 (decorative only).
+//                BLEED_RED on BONE_WHITE is 8.88:1 (WCAG AA pass).
+//                ASH_GRAY on BONE_WHITE was 3.06:1 (fail) - darkened to 666666 (5.09:1).
+//                BLEED_RED_BRIGHT on INK_BLACK is 4.75:1 (WCAG AA pass - use for text).
+export const BLEED_RED  = "#8B0000";  // decorative only - DO NOT USE for text on dark bg
+export const BLEED_RED_BRIGHT = "#E63946";  // text-safe variant for dark backgrounds
 export const INK_BLACK  = "#0A0A0A";  // text, dark sections
 export const BONE_WHITE = "#F5F1E8";  // page background
-export const ASH_GRAY   = "#8A8A8A";  // secondary text
+export const ASH_GRAY   = "#666666";  // secondary text (WCAG AA on bone-white)
 export const GOLD       = "#C9A84C";  // optional CTA pop, prices
 
 // Business tokens (single source of truth — change here, propagates everywhere)

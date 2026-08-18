@@ -9,7 +9,7 @@
  */
 
 import Link from "next/link";
-import { BLEED_RED, BONE_WHITE, INK_BLACK, SHOP } from "@/lib/constants";
+import { BLEED_RED, BLEED_RED_BRIGHT, BONE_WHITE, INK_BLACK, SHOP } from "@/lib/constants";
 import { telLink } from "@/lib/utils";
 
 const QUICK_LINKS = [
@@ -67,7 +67,7 @@ export default function Footer() {
                 letterSpacing: "-0.02em",
               }}
             >
-              Bleeding <span style={{ color: BLEED_RED }}>Ink</span>
+              Bleeding <span style={{ color: BLEED_RED_BRIGHT }}>Ink</span>
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14, opacity: 0.85, lineHeight: 1.6 }}>
               <div>{SHOP.address.mall}</div>
@@ -91,7 +91,7 @@ export default function Footer() {
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 marginBottom: 16,
-                color: BLEED_RED,
+                color: BLEED_RED_BRIGHT,
               }}
             >
               Hours
@@ -115,7 +115,7 @@ export default function Footer() {
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 marginBottom: 16,
-                color: BLEED_RED,
+                color: BLEED_RED_BRIGHT,
               }}
             >
               Explore
@@ -143,7 +143,7 @@ export default function Footer() {
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 marginBottom: 16,
-                color: BLEED_RED,
+                color: BLEED_RED_BRIGHT,
               }}
             >
               Follow
@@ -186,7 +186,7 @@ export default function Footer() {
             style={{
               fontFamily: "var(--font-marker)",
               fontSize: 18,
-              color: BLEED_RED,
+              color: BLEED_RED_BRIGHT,
               opacity: 1,
               letterSpacing: "0.02em",
             }}

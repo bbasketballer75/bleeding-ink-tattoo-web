@@ -9,7 +9,7 @@
  */
 
 import Link from "next/link";
-import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
+import { BONE_WHITE, BLEED_RED, BLEED_RED_BRIGHT } from "@/lib/constants";
 import TattooSVG from "./TattooSVG";
 
 interface MockPost {
@@ -91,7 +91,7 @@ export default function InstagramFeed() {
             display: "inline-block",
             padding: "8px 16px",
             background: "transparent",
-            color: BLEED_RED,
+            color: BLEED_RED_BRIGHT,
             border: `2px solid ${BLEED_RED}`,
             fontSize: 13,
             fontWeight: 700,
