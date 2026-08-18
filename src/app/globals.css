@@ -134,8 +134,11 @@ body {
   transition: top 0.15s ease;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   top: 16px;
+  outline: 3px solid var(--color-bleed-red);
+  outline-offset: 2px;
 }
 
 /* Drip divider — a small red blood drop between sections */

@@ -164,6 +164,27 @@ export default function RootLayout({
         <main id="main" style={{ minHeight: "60vh" }}>{children}</main>
         <Footer />
         <MobileStickyCTA />
+
+        {/* Noscript fallback for JS-disabled visitors */}
+        <noscript>
+          <div
+            style={{
+              position: "fixed",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: "12px 16px",
+              background: "var(--color-bleed-red)",
+              color: "var(--color-bone-white)",
+              textAlign: "center",
+              zIndex: 9999,
+              fontSize: 14,
+              fontWeight: 600,
+            }}
+          >
+            Bleeding Ink works best with JavaScript enabled. For bookings, call (215) 980-1386.
+          </div>
+        </noscript>
       </body>
     </html>
   );

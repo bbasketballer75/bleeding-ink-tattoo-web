@@ -58,14 +58,33 @@ export default function Navbar() {
   }, [drawerOpen]);
 
   // Escape key closes drawer
-  useEffect(() => {
-    if (!drawerOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDrawerOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [drawerOpen]);
+    useEffect(() => {
+      if (!drawerOpen) return;
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setDrawerOpen(false);
+        // Focus trap: cycle focus through drawer's focusable elements
+        if (e.key === "Tab") {
+                  const drawer = document.getElementById("mobile-drawer");
+                  if (!drawer) return;
+                  const focusable = drawer.querySelectorAll<HTMLElement>(
+                    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                  );
+                  if (focusable.length === 0) return;
+                  const first = focusable[0];
+                  const last = focusable[focusable.length - 1];
+                  if (!first || !last) return;
+                  if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                  } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                  }
+                }
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }, [drawerOpen]);
 
   const headerStyle: React.CSSProperties = {
     position: "fixed",

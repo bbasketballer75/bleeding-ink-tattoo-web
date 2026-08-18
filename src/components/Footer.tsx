@@ -10,6 +10,7 @@
 
 import Link from "next/link";
 import { BLEED_RED, BLEED_RED_BRIGHT, BONE_WHITE, INK_BLACK, SHOP } from "@/lib/constants";
+import OpenStatusBadge from "./OpenStatusBadge";
 import { telLink } from "@/lib/utils";
 
 const QUICK_LINKS = [
@@ -18,9 +19,9 @@ const QUICK_LINKS = [
   { href: "/services",  label: "Services" },
   { href: "/faq",       label: "FAQ" },
   { href: "/contact",   label: "Contact" },
-    { href: "/aftercare", label: "Aftercare" },
-    { href: "/legal",     label: "Privacy & Terms" },
-    { href: "/book",      label: "Book a session" },
+  { href: "/aftercare", label: "Aftercare" },
+  { href: "/legal",     label: "Privacy & Terms" },
+  { href: "/book",      label: "Book a session" },
 ];
 
 const SOCIAL_LINKS = [
@@ -86,18 +87,21 @@ export default function Footer() {
 
           {/* Hours */}
           <div>
-            <h4
-              style={{
-                fontSize: 12,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                marginBottom: 16,
-                color: BLEED_RED_BRIGHT,
-              }}
-            >
-              Hours
-            </h4>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+              <h4
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: BLEED_RED_BRIGHT,
+                  margin: 0,
+                }}
+              >
+                Hours
+              </h4>
+              <OpenStatusBadge />
+            </div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 14, lineHeight: 1.8 }}>
               {SHOP.hours.map((h) => (
                 <li key={h.day} style={{ display: "flex", justifyContent: "space-between", gap: 16, opacity: h.hours === "Closed" ? 0.5 : 1 }}>

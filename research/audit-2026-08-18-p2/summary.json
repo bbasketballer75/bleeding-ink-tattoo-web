@@ -1,0 +1,56 @@
+[
+  {
+    "route": "/",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/artists",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/services",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/portfolio",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/faq",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/book",
+    "a11y": 100,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/contact",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/aftercare",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  },
+  {
+    "route": "/legal",
+    "a11y": 96,
+    "bp": 100,
+    "seo": 100
+  }
+]
