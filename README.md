@@ -23,4 +23,29 @@ See `AGENTS.md` for project conventions, brand tokens, and known pitfalls.
 
 ## Project Status
 
-Stage 3 build in progress as of 2026-08-17. See the planning notes in `C:\Users\bbask\Hermes-Workspace\bleeding-ink-website\` for intake, research, and the full Stage 3 bite-sized build plan.
+Stage 3 build in progress as of 2026-08-17.
+
+## Deploying
+
+Pushed to GitHub: https://github.com/bbasketballer75/bleeding-ink-tattoo-web
+
+Auto-deploys to Vercel via the Vercel GitHub integration. Custom domain:
+`bleedinginktattoo.com`.
+
+To redeploy manually after a code change:
+
+```bash
+cd bleeding-ink-tattoo-web
+git push origin main   # Vercel picks up the push and rebuilds
+```
+
+Environment variables (Vercel dashboard → Project Settings):
+
+| Name | Required for | Description |
+|------|--------------|-------------|
+| `RESEND_API_KEY` | Contact form | Sign up at https://resend.com — free tier OK |
+| `RESEND_FROM_EMAIL` | Contact form | e.g. `Bleeding Ink <hello@bleedinginktattoo.com>` |
+| `RESEND_TO_EMAIL` | Contact form | Where contact submissions land (use the Gmail) |
+
+See `LAUNCH-CHECKLIST.md` for the full pre-launch sequence (domain buy,
+GlossGenius setup, directory claims). See the planning notes in `C:\Users\bbask\Hermes-Workspace\bleeding-ink-website\` for intake, research, and the full Stage 3 bite-sized build plan.
