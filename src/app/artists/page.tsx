@@ -3,15 +3,17 @@
  */
 
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import ArtistCard from "@/components/ArtistCard";
 import { ARTISTS } from "@/data/artists";
 
-export const metadata: Metadata = {
-  title: "Artists",
-  description: "Meet the artists at Bleeding Ink Tattooing in Johnstown, PA. Custom work, coverups, color.",
-};
+export const metadata = buildMetadata({
+  title: "Our Artists",
+  description: "Meet the artists at Bleeding Ink Tattooing in Johnstown, PA. Custom tattoos, coverups, color work, apprentices.",
+  path: "/artists",
+});
 
 export default function ArtistsPage() {
   return (

@@ -33,16 +33,18 @@
  */
 
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import { SHOP, BLEED_RED, BONE_WHITE, DEPOSIT_MIN } from "@/lib/constants";
 import { formatUSD } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Book a Session",
-  description: "Book a custom tattoo session or free consultation at Bleeding Ink in Johnstown, PA.",
-};
+  description: 'Book a custom tattoo session or free consultation at Bleeding Ink in Johnstown, PA. Online booking coming soon — call (215) 980-1386.',
+  path: "/book",  indexable: false,
+});
 
 export default function BookPage() {
   return (

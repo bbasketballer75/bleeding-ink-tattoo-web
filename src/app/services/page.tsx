@@ -7,6 +7,7 @@
  */
 
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
@@ -15,10 +16,11 @@ import { SERVICES } from "@/data/services";
 import { DEPOSIT_MIN, BLEED_RED } from "@/lib/constants";
 import { formatUSD } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Services & Pricing",
-  description: "Custom tattoos, coverups, color work, free consultations. Walk-ins welcome at Bleeding Ink in Johnstown, PA.",
-};
+  description: 'Custom tattoos, coverups, color work, free consultations at Bleeding Ink in Johnstown, PA. Walk-ins welcome.',
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

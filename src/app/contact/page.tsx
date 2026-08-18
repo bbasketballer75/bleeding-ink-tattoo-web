@@ -7,16 +7,18 @@
  */
 
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import ContactForm from "./ContactForm";
 import { SHOP, BLEED_RED, BONE_WHITE } from "@/lib/constants";
 import { mapsEmbedUrl, mapsLink } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Contact",
-  description: "Get in touch with Bleeding Ink in Johnstown, PA. Free consultations, walk-ins welcome.",
-};
+  description: 'Get in touch with Bleeding Ink in Johnstown, PA. Phone (215) 980-1386, hours, location at the Johnstown Galleria, and consultation form.',
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

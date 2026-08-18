@@ -6,15 +6,17 @@
  */
 
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import { FAQS } from "@/data/faqs";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "FAQ",
-  description: "Common questions about Bleeding Ink — walk-ins, deposits, pricing, age requirements, coverups, hours, and booking.",
-};
+  description: 'Common questions about Bleeding Ink in Johnstown, PA — walk-ins, $65 deposit, ages, aftercare, coverups.',
+  path: "/faq",
+});
 
 export default function FaqPage() {
   return (

@@ -10,6 +10,8 @@
  *   6. Location (address + Google Maps embed)
  */
 
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
@@ -20,9 +22,12 @@ import { SERVICES } from "@/data/services";
 import { SHOP, BLEED_RED, BONE_WHITE, DEPOSIT_MIN } from "@/lib/constants";
 import { mapsEmbedUrl, mapsLink, formatUSD } from "@/lib/utils";
 
-export const metadata = {
-  title: "Bleeding Ink — Custom Tattoos in Johnstown, PA",
-};
+export const metadata = buildMetadata({
+  title: `${SHOP.name} — Custom Tattoos in Johnstown, PA`,
+  description:
+    "Custom tattoos, coverups, and color work at Bleeding Ink inside the Johnstown Galleria. Walk-ins welcome. Free consultation. $65 deposit.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (

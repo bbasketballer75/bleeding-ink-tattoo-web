@@ -5,11 +5,12 @@
  */
 
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Hero from "@/components/Hero";
 import { ARTISTS, getArtist } from "@/data/artists";
-import { SHOP, BLEED_RED } from "@/lib/constants";
+import { SHOP, BLEED_RED, SITE_URL } from "@/lib/constants";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -23,10 +24,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const artist = getArtist(slug);
   if (!artist) return { title: "Artist not found" };
-  return {
+  return buildMetadata({
     title: `${artist.name} — ${artist.role}`,
     description: artist.bio,
-  };
+    path: `/artists/${artist.slug}`,
+  });
 }
 
 export default async function ArtistDetailPage({ params }: PageProps) {
@@ -152,6 +154,25 @@ export default async function ArtistDetailPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* JSON-LD: Person schema for this artist */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "@id": `${SITE_URL}/artists/${artist.slug}#person`,
+            name: artist.name,
+            jobTitle: artist.role,
+            worksFor: { "@id": `${SITE_URL}#business` },
+            url: `${SITE_URL}/artists/${artist.slug}`,
+            sameAs: artist.instagram ? [artist.instagram] : undefined,
+            knowsAbout: artist.specialties,
+            description: artist.bio,
+          }),
+        }}
+      />
     </>
   );
 }

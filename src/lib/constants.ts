@@ -60,4 +60,4 @@ export const SHOP = {
 // SEO defaults
 export const SITE_URL = "https://bleedinginktattoo.com";  // confirmed Austin 2026-08-17
 export const SITE_DESCRIPTION = "Custom tattoo studio in Johnstown, PA. Coverups, color work, walk-ins welcome. Located in the Johnstown Galleria. Free consultation, $65 deposit.";
-export const OG_IMAGE = "/og-default.png";  // generated in T3.1
+export const OG_IMAGE = "/og-default.svg";  // static OG image in /public

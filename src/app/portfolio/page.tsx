@@ -7,16 +7,18 @@
  */
 
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import { PORTFOLIO } from "@/data/portfolio";
 import { BLEED_RED } from "@/lib/constants";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Portfolio",
-  description: "Custom tattoos, coverups, color work by the artists at Bleeding Ink in Johnstown, PA.",
-};
+  description: 'Custom tattoos, coverups, color work by the artists at Bleeding Ink in Johnstown, PA. Coming soon.',
+  path: "/portfolio",
+});
 
 export default function PortfolioPage() {
   return (
