@@ -1,7 +1,31 @@
 # Bleeding Ink Tattoo — Launch Checklist
 
-> Everything that still needs to happen before bleedinginktattoo.com is live.
+> **⚠️ NOTE:** This site is currently deployed as a **DEMO** at
+> `https://bleeding-ink-tattoo-web.inquiry-970.workers.dev`
+> (Cloudflare Workers Free tier). It uses the **future production domain
+> `bleedinginktattoo.com`** in all metadata/sitemap/JSON-LD/OG tags so when
+> the real domain is connected, nothing needs to change.
+
 > Walk through top-to-bottom in order.
+
+## Phase 0: Self-test the live demo
+
+Run this before every demo or deployment. It hits every page and
+confirms the site is alive and on-brand.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\selftest-demo.ps1
+```
+
+Manual smoke test (5 min): open `https://bleeding-ink-tattoo-web.inquiry-970.workers.dev/` in a browser and verify:
+- [ ] Home page shows "BLEEDING INK" hero, $65 deposit mention, artist cards, reviews, IG feed
+- [ ] /artists shows Isiah Jackson + Courtney Fetzer
+- [ ] /portfolio has 8 filterable tattoo cards
+- [ ] /book shows 10-field consultation form
+- [ ] /contact form submits (logs only, no email yet)
+- [ ] /aftercare shows 7 sections with TOC + section numbers
+- [ ] Mobile: hamburger nav works, sticky CTA bar appears at bottom
+- [ ] /sitemap.xml and /robots.txt are reachable
 
 ---
 
