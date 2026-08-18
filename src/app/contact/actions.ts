@@ -24,6 +24,8 @@ interface ContactSubmission {
 interface ContactResult {
   ok: boolean;
   error?: string;
+  /** Optional echo of the submission for client-side confirmation UI */
+  preview?: { name: string; email: string; subject: string; message: string };
 }
 
 /** Read an env var from either Node's process.env or Cloudflare's env (workers) */
@@ -90,7 +92,7 @@ export async function submitContact(formData: FormData): Promise<ContactResult> 
       subject: subjectLine,
       message: submission.message,
     });
-    return { ok: true };
+    return { ok: true, preview: submission };
   }
 
   try {
@@ -116,7 +118,7 @@ export async function submitContact(formData: FormData): Promise<ContactResult> 
       return { ok: false, error: "Couldn’t send your message — please try again or call us directly." };
     }
 
-    return { ok: true };
+    return { ok: true, preview: submission };
   } catch (err) {
     console.error("[contact] Unexpected error:", err);
     return { ok: false, error: "Something went wrong on our end. Please try again." };

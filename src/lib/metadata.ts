@@ -17,6 +17,10 @@ export interface PageMeta {
   image?: string;
   /** Defaults to true. Set false on the /book placeholder so it doesn't rank. */
   indexable?: boolean;
+  /** Optional keywords for the meta keywords tag. */
+  keywords?: string[];
+  /** Optional robots override. */
+  robots?: Metadata['robots'];
 }
 
 /**
@@ -28,6 +32,7 @@ export function buildMetadata({
   path = "/",
   image,
   indexable = true,
+  keywords,
 }: PageMeta): Metadata {
   const url = `${SITE_URL}${path === "/" ? "" : path}`;
   const desc = description ?? SITE_DESCRIPTION;
@@ -35,6 +40,7 @@ export function buildMetadata({
   return {
     title,
     description: desc,
+    keywords,
     alternates: { canonical: url },
     robots: indexable
       ? { index: true, follow: true }

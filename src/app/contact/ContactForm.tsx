@@ -21,7 +21,7 @@ const SUBJECTS = [
 
 export default function ContactForm() {
   const [pending, startTransition] = useTransition();
-  const [result, setResult] = useState<{ ok: boolean; error?: string } | null>(null);
+  const [result, setResult] = useState<{ ok: boolean; error?: string; preview?: Record<string, string> } | null>(null);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,21 +44,93 @@ export default function ContactForm() {
           color: "var(--color-ink-black)",
           border: `2px solid ${BLEED_RED}`,
         }}
+        role="status"
       >
-        <h3
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+          <span
+            style={{
+              flexShrink: 0,
+              width: 32,
+              height: 32,
+              background: BLEED_RED,
+              color: "var(--color-bone-white)",
+              borderRadius: 16,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: 700,
+              fontSize: 18,
+            }}
+            aria-hidden
+          >
+            ✓
+          </span>
+          <h3
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 26,
+              textTransform: "uppercase",
+              margin: 0,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            Message received
+          </h3>
+        </div>
+        <p style={{ margin: "0 0 16px", opacity: 0.85, fontSize: 15, lineHeight: 1.6 }}>
+          We'll respond within <strong>1 business day</strong>. For anything urgent, give us a call during shop hours.
+        </p>
+
+        {/* Summary of what they submitted (helps them remember they sent it) */}
+        {result.preview && (
+          <details
+            style={{
+              marginTop: 16,
+              paddingTop: 16,
+              borderTop: "1px solid rgba(10, 10, 10, 0.1)",
+            }}
+          >
+            <summary
+              style={{
+                cursor: "pointer",
+                fontSize: 13,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                marginBottom: 8,
+              }}
+            >
+              Your submission
+            </summary>
+            <dl style={{ margin: 0, fontSize: 13 }}>
+              {Object.entries(result.preview).map(([k, v]) => (
+                <div key={k} style={{ marginBottom: 6 }}>
+                  <dt style={{ display: "inline", fontWeight: 700, textTransform: "capitalize", marginRight: 6 }}>{k}:</dt>
+                  <dd style={{ display: "inline", margin: 0, opacity: 0.8 }}>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </details>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setResult(null)}
           style={{
-            fontFamily: "var(--font-display)",
-            fontSize: 32,
+            marginTop: 20,
+            background: "transparent",
+            color: BLEED_RED,
+            border: `2px solid ${BLEED_RED}`,
+            padding: "8px 18px",
+            fontSize: 13,
+            fontWeight: 700,
             textTransform: "uppercase",
-            margin: 0,
-            marginBottom: 12,
+            letterSpacing: "0.05em",
+            cursor: "pointer",
           }}
         >
-          Thanks — we'll be in touch.
-        </h3>
-        <p style={{ margin: 0, opacity: 0.85 }}>
-          We respond to every message within 2 business days. For anything urgent, give us a call during shop hours.
-        </p>
+          Send another message
+        </button>
       </div>
     );
   }

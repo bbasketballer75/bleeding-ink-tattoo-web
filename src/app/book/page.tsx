@@ -1,49 +1,28 @@
 /**
- * Book — /book.
+ * Book a session — /book.
  *
- * v1 PLACEHOLDER (T2.7 PAUSE GATE).
- *
- * Per Stage 3 build plan T2.7, this page is the pause gate that requires
- * the shop owner (Isiah) to set up a GlossGenius account before we can
- * embed their real booking widget.
- *
- * What this page does today:
- *   - Renders a clear message that booking is "coming soon"
- *   - Provides fallback paths (call to book, walk-in info, contact form)
- *   - Documents EXACTLY what needs to happen to enable real booking:
- *       1. Isiah creates a GlossGenius account (free tier)
- *       2. Sets deposit to $65 non-refundable
- *       3. Configures hours Tue-Sat 11-7
- *       4. Gets his booking URL (e.g. https://ibleedink.glossgenius.com)
- *       5. Shares URL with Austin → Austin pastes into GGL_BOOKING_URL env
- *       6. Hermes wires the embed
- *
- *   - Includes the URL constant ready to swap in when ready
- *
- * To enable real booking: replace the "Coming Soon" panel below with the
- * GlossGenius embed iframe. Embed code example:
- *
- *   <iframe
- *     src={process.env.NEXT_PUBLIC_GGL_BOOKING_URL}
- *     width="100%"
- *     height="900"
- *     style="border: 0;"
- *     title="Book with Bleeding Ink"
- *   />
+ * Demo: real consultation form (10 fields) that submits to a server action
+ * which logs to console. In production this would email Isiah + Courtney
+ * via Resend/SMS/CRM.
  */
 
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
-import Link from "next/link";
 import Hero from "@/components/Hero";
-import SectionHeading from "@/components/SectionHeading";
-import { SHOP, BLEED_RED, BONE_WHITE, DEPOSIT_MIN } from "@/lib/constants";
-import { formatUSD } from "@/lib/utils";
+import ConsultationForm from "./ConsultationForm";
+import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
 
 export const metadata = buildMetadata({
   title: "Book a Session",
-  description: 'Book a custom tattoo session or free consultation at Bleeding Ink in Johnstown, PA. Online booking coming soon — call (215) 980-1386.',
-  path: "/book",  indexable: false,
+  description:
+    "Book a free consultation or tattoo session at Bleeding Ink in Johnstown, PA. Tell us your idea, size, placement, and preferred artist. We'll respond within 1 business day.",
+  path: "/book",
+  keywords: [
+    "book tattoo johnstown pa",
+    "tattoo consultation johnstown",
+    "tattoo appointment johnstown",
+  ],
+  robots: { index: true, follow: true },
 });
 
 export default function BookPage() {
@@ -51,201 +30,136 @@ export default function BookPage() {
     <>
       <Hero
         variant="compact"
-        headline="Book a Session"
-        tagline="Free consultation first. Deposit to lock in your slot. Walk-ins welcome too."
+        eyebrow="Book"
+        headline="BOOK A SESSION"
+        tagline="Free consultation first. We'll go over your idea, sizing, placement, and schedule — no commitment required to chat."
       />
 
-      <section style={{ padding: "60px 24px 80px" }}>
-        <div style={{ maxWidth: 960, margin: "0 auto" }}>
-          <SectionHeading
-            eyebrow="Booking"
-            heading="Online booking coming soon"
-            body="We're setting up the booking system. In the meantime, you've got three easy ways to get on the schedule."
-          />
+      <section style={{ padding: "60px 20px", background: "#0A0A0A" }}>
+        <div
+          style={{
+            maxWidth: 800,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr)",
+            gap: 48,
+          }}
+        >
+          {/* Left: form */}
+          <div>
+            <ConsultationForm />
+          </div>
 
-          {/* Three options grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: 24,
-              marginBottom: 48,
-            }}
-          >
-            {/* Option 1: Call */}
+          {/* Right: what to expect + deposit info */}
+          <aside>
             <div
               style={{
-                background: "var(--color-bone-white)",
-                color: "var(--color-ink-black)",
-                padding: 32,
-                display: "flex",
-                flexDirection: "column",
-                border: "2px solid var(--color-bleed-red)",
+                background: "rgba(245, 241, 232, 0.05)",
+                border: "1px solid rgba(245, 241, 232, 0.15)",
+                padding: "24px 24px",
+                borderRadius: 2,
+                marginBottom: 24,
               }}
             >
-              <div
-                style={{
-                  fontFamily: "var(--font-marker)",
-                  color: BLEED_RED,
-                  fontSize: 14,
-                  marginBottom: 12,
-                }}
-              >
-                Fastest
-              </div>
               <h3
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: 24,
-                  textTransform: "uppercase",
+                  fontSize: 22,
                   margin: 0,
-                  marginBottom: 12,
-                }}
-              >
-                Call us
-              </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.5, margin: 0, marginBottom: 20, opacity: 0.85 }}>
-                Speak to Isiah or Courtney directly during shop hours. We can often fit walk-ins in the same day.
-              </p>
-              <a
-                href={`tel:${SHOP.phone.tel}`}
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 24,
-                  color: BLEED_RED,
-                  textDecoration: "none",
+                  marginBottom: 16,
+                  color: BONE_WHITE,
+                  textTransform: "uppercase",
                   letterSpacing: "-0.01em",
-                  marginTop: "auto",
                 }}
               >
-                {SHOP.phone.display}
-              </a>
-              <div style={{ fontSize: 12, opacity: 0.6, marginTop: 8 }}>
-                Tue–Sat, 11 AM – 7 PM
-              </div>
+                What happens next
+              </h3>
+              <ol style={{ margin: 0, padding: 0, listStyle: "none", counterReset: "step" }}>
+                {[
+                  "We'll reply within 1 business day with questions or a time to chat.",
+                  "Free consultation (in-person or by phone) to nail down the design.",
+                  "Once you're ready, $65 non-refundable deposit locks your appointment.",
+                  "Show up, get tattooed, leave with a piece you'll love.",
+                ].map((step, i) => (
+                  <li
+                    key={i}
+                    style={{
+                      display: "flex",
+                      gap: 14,
+                      marginBottom: 14,
+                      color: BONE_WHITE,
+                      fontSize: 14,
+                      lineHeight: 1.5,
+                      opacity: 0.85,
+                    }}
+                  >
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        width: 28,
+                        height: 28,
+                        background: BLEED_RED,
+                        color: BONE_WHITE,
+                        borderRadius: 14,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: 700,
+                        fontSize: 13,
+                      }}
+                    >
+                      {i + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
             </div>
 
-            {/* Option 2: Walk-in */}
             <div
               style={{
-                background: "var(--color-bone-white)",
-                color: "var(--color-ink-black)",
-                padding: 32,
-                display: "flex",
-                flexDirection: "column",
-                border: "1px solid rgba(10, 10, 10, 0.1)",
+                background: BLEED_RED,
+                color: BONE_WHITE,
+                padding: "20px 24px",
+                borderRadius: 2,
               }}
             >
-              <div
-                style={{
-                  fontFamily: "var(--font-marker)",
-                  color: BLEED_RED,
-                  fontSize: 14,
-                  marginBottom: 12,
-                }}
-              >
-                No appointment
-              </div>
-              <h3
+              <h4
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: 24,
-                  textTransform: "uppercase",
+                  fontSize: 18,
                   margin: 0,
-                  marginBottom: 12,
+                  marginBottom: 8,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.02em",
                 }}
               >
-                Walk in
-              </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.5, margin: 0, marginBottom: 20, opacity: 0.85 }}>
-                Pop into the shop any time we're open for a free consultation. No appointment needed.
+                Deposit: $65 non-refundable
+              </h4>
+              <p style={{ fontSize: 13, lineHeight: 1.55, margin: 0, opacity: 0.95 }}>
+                Applies to the final cost. Cancels inside 48 hours forfeit the deposit. Reschedule free with 48+ hours notice.
               </p>
-              <div style={{ marginTop: "auto", fontSize: 13, lineHeight: 1.5 }}>
-                <strong>Johnstown Galleria</strong>
-                <br />
-                500 Galleria Dr
-                <br />
-                Johnstown, PA 15904
-              </div>
             </div>
 
-            {/* Option 3: Message */}
             <div
               style={{
-                background: "var(--color-bone-white)",
-                color: "var(--color-ink-black)",
-                padding: 32,
-                display: "flex",
-                flexDirection: "column",
-                border: "1px solid rgba(10, 10, 10, 0.1)",
+                marginTop: 24,
+                padding: "20px 0",
+                borderTop: "1px solid rgba(245, 241, 232, 0.15)",
+                color: BONE_WHITE,
+                fontSize: 13,
+                lineHeight: 1.6,
+                opacity: 0.7,
               }}
             >
-              <div
-                style={{
-                  fontFamily: "var(--font-marker)",
-                  color: BLEED_RED,
-                  fontSize: 14,
-                  marginBottom: 12,
-                }}
-              >
-                Async
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 24,
-                  textTransform: "uppercase",
-                  margin: 0,
-                  marginBottom: 12,
-                }}
-              >
-                Send a message
-              </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.5, margin: 0, marginBottom: 20, opacity: 0.85 }}>
-                Drop us a description of your idea and we'll get back within 2 business days.
+              <p style={{ margin: 0, marginBottom: 8 }}>
+                <strong style={{ opacity: 1 }}>Walk-ins always welcome</strong> for flash pieces and small consults.
               </p>
-              <Link
-                href="/contact"
-                style={{
-                  display: "inline-block",
-                  marginTop: "auto",
-                  fontSize: 13,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  color: BLEED_RED,
-                  textDecoration: "none",
-                }}
-              >
-                Open contact form →
-              </Link>
+              <p style={{ margin: 0 }}>
+                For custom work, this form is the fastest path. Or call us directly.
+              </p>
             </div>
-          </div>
-
-          {/* Deposit info */}
-          <div
-            style={{
-              padding: 32,
-              background: BLEED_RED,
-              color: BONE_WHITE,
-              textAlign: "center",
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 28,
-                textTransform: "uppercase",
-                margin: 0,
-                marginBottom: 12,
-              }}
-            >
-              {formatUSD(DEPOSIT_MIN)} deposit to lock in your slot
-            </h3>
-            <p style={{ margin: 0, fontSize: 16, opacity: 0.95 }}>
-              Non-refundable. Comes off the price of your final tattoo.
-            </p>
-          </div>
+          </aside>
         </div>
       </section>
     </>

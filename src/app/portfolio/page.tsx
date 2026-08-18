@@ -1,23 +1,31 @@
 /**
  * Portfolio — /portfolio.
  *
- * v1 placeholder state: shows a "coming soon" with instructions for the
- * shop owner to upload images. Real portfolio renders once PORTFOLIO array
- * in src/data/portfolio.ts has entries.
+ * Showcases every piece in src/data/portfolio.ts with style filter chips.
+ * Demo data uses inline SVGs (TattooSVG component) so we don't ship
+ * unlicensed images. Real shop owner would replace these with actual photos.
  */
 
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
-import Link from "next/link";
 import Hero from "@/components/Hero";
-import SectionHeading from "@/components/SectionHeading";
-import { PORTFOLIO } from "@/data/portfolio";
-import { BLEED_RED } from "@/lib/constants";
+import PortfolioGrid from "@/components/PortfolioGrid";
+import Button from "@/components/Button";
+import Link from "next/link";
+import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
 
 export const metadata = buildMetadata({
   title: "Portfolio",
-  description: 'Custom tattoos, coverups, color work by the artists at Bleeding Ink in Johnstown, PA. Coming soon.',
+  description:
+    "Browse portfolio pieces by Isiah Jackson and Courtney Fetzer — traditional, fine line, blackwork, neo-traditional, coverups, and color work. Filter by style.",
   path: "/portfolio",
+  keywords: [
+    "tattoo portfolio johnstown pa",
+    "traditional tattoos johnstown",
+    "fine line tattoos",
+    "color tattoos johnstown",
+    "tattoo coverup portfolio",
+  ],
 });
 
 export default function PortfolioPage() {
@@ -25,102 +33,63 @@ export default function PortfolioPage() {
     <>
       <Hero
         variant="compact"
-        headline="Portfolio"
-        tagline="Recent work from the shop. Updated as we go."
+        eyebrow="Portfolio"
+        headline="OUR WORK"
+        tagline="Custom pieces by Isiah and Courtney. Filter by style — see something you like? Drop us a line."
       />
 
-      <section style={{ padding: "60px 24px 80px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          {PORTFOLIO.length === 0 ? (
-            <>
-              <SectionHeading
-                eyebrow="Coming Soon"
-                heading="Portfolio is being curated"
-                body="We're working with the artists to publish their best pieces. Check back soon, or follow @ibleedink_600 on Instagram for the latest."
-              />
-              <div
-                style={{
-                  background: "var(--color-bone-white)",
-                  color: "var(--color-ink-black)",
-                  padding: 48,
-                  border: "2px dashed rgba(10, 10, 10, 0.2)",
-                  marginTop: 24,
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 24,
-                    textTransform: "uppercase",
-                    margin: 0,
-                    marginBottom: 16,
-                  }}
-                >
-                  Until then, see us on Instagram
-                </h3>
-                <p style={{ margin: 0, marginBottom: 24, opacity: 0.85 }}>
-                  The artists post their freshest work to Instagram first. Tap through to see what's coming off the chair this week.
-                </p>
-                <a
-                  href="https://www.instagram.com/ibleedink_600/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary"
-                  style={{ fontSize: 14 }}
-                >
-                  Open Instagram ↗
-                </a>
-              </div>
-            </>
-          ) : (
-            <>
-              <SectionHeading
-                eyebrow="The Work"
-                heading={`${PORTFOLIO.length} piece${PORTFOLIO.length === 1 ? "" : "s"} on the wall`}
-                body="Real tattoos by real artists. Click any image to see the full session story."
-              />
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-                  gap: 16,
-                }}
-              >
-                {PORTFOLIO.map((piece) => (
-                  <div
-                    key={piece.id}
-                    style={{
-                      position: "relative",
-                      aspectRatio: `${piece.width} / ${piece.height}`,
-                      background: `var(--color-ash-gray)`,
-                      overflow: "hidden",
-                    }}
-                  >
-                    <img
-                      src={piece.imageUrl}
-                      alt={piece.altText}
-                      loading="lazy"
-                      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
+      <section style={{ padding: "60px 20px", background: "#0A0A0A" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <PortfolioGrid />
+        </div>
+      </section>
 
-          <div
+      {/* CTA strip */}
+      <section
+        style={{
+          padding: "80px 20px",
+          background: BONE_WHITE,
+          color: "#0A0A0A",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ maxWidth: 700, margin: "0 auto" }}>
+          <h2
             style={{
-              marginTop: 64,
-              padding: "32px 24px",
-              borderTop: `1px solid ${BLEED_RED}`,
-              textAlign: "center",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(36px, 5vw, 56px)",
+              margin: 0,
+              marginBottom: 16,
+              letterSpacing: "-0.02em",
+              textTransform: "uppercase",
             }}
           >
-            <p style={{ fontSize: 16, opacity: 0.85, margin: 0, marginBottom: 16 }}>
-              Want something specific? Bring your idea and we'll build it together.
-            </p>
-            <Link href="/book" className="btn-primary" style={{ fontSize: 14 }}>
-              Book a Free Consultation
+            See something you like?
+          </h2>
+          <p
+            style={{
+              fontSize: 17,
+              lineHeight: 1.6,
+              opacity: 0.7,
+              margin: 0,
+              marginBottom: 32,
+            }}
+          >
+            Bring your idea — or let us help you find one. Free consultation, walk-ins welcome, $65 deposit secures your slot.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+              justifyContent: "center",
+            }}
+          >
+            <Link href="/book">
+              <Button variant="primary">Book a Session</Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="secondary">Ask a Question</Button>
             </Link>
           </div>
         </div>

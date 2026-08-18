@@ -15,14 +15,14 @@ export interface Artist {
 
 export interface PortfolioPiece {
   id: string;
-  artistSlug: string;
-  title?: string;
-  imageUrl: string;
-  width: number;   // intrinsic width for next/image
-  height: number;  // intrinsic height for aspect ratio
-  altText: string;
-  featured?: boolean;
-  year?: number;
+  title: string;
+  style: string;       // traditional | fine-line | realism | blackwork | coverup | color | neo-traditional | Japanese
+  artist: "isiah-jackson" | "courtney-fetzer";
+  description: string;
+  placement: string;    // forearm, back, ribs, calf, etc.
+  sizeInches: string;   // 4x6, 6x8, full sleeve, etc.
+  svgStyle: "rose" | "skull" | "mountain" | "snake" | "compass" | "phoenix" | "moon" | "flame";
+  accent: string;       // hex color for SVG
 }
 
 export interface Service {

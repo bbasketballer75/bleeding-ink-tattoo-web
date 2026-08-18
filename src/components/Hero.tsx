@@ -18,6 +18,7 @@ interface HeroProps {
   variant?: "home" | "compact";
   headline: string;
   tagline?: string;
+  eyebrow?: string;
   primaryCta?: { href: string; label: string };
   secondaryCta?: { href: string; label: string };
   backgroundImage?: string;
@@ -27,6 +28,7 @@ export default function Hero({
   variant = "home",
   headline,
   tagline,
+  eyebrow,
   primaryCta,
   secondaryCta,
   backgroundImage,
@@ -73,6 +75,22 @@ export default function Hero({
       )}
 
       <div style={{ maxWidth: 980, width: "100%" }}>
+        {/* Eyebrow — small kicker text above headline */}
+        {eyebrow && (
+          <div
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: BLEED_RED,
+              marginBottom: 16,
+            }}
+          >
+            {eyebrow}
+          </div>
+        )}
         {/* Headline */}
         <h1
           style={{
