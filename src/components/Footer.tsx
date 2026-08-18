@@ -38,7 +38,7 @@ export default function Footer() {
         color: BONE_WHITE,
         marginTop: 80,
       }}
-    >
+     data-theme="dark">
       <div
         style={{
           maxWidth: 1280,
@@ -186,7 +186,7 @@ export default function Footer() {
             style={{
               fontFamily: "var(--font-marker)",
               fontSize: 18,
-              color: BLEED_RED_BRIGHT,
+              color: "#FF6B6B",
               opacity: 1,
               letterSpacing: "0.02em",
             }}

@@ -22,7 +22,7 @@ import Hero from "@/components/Hero";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import TocList from "@/components/TocList";
 import Link from "next/link";
-import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
+import { BONE_WHITE, BLEED_RED, BLEED_RED_BRIGHT } from "@/lib/constants";
 
 export const metadata = buildMetadata({
   title: "Tattoo Aftercare Guide",
@@ -211,7 +211,7 @@ export default function AftercarePage() {
                   style={{
                     fontFamily: "var(--font-display)",
                     fontSize: 48,
-                    color: BLEED_RED,
+                    color: BLEED_RED_BRIGHT,
                     lineHeight: 1,
                   }}
                   aria-hidden

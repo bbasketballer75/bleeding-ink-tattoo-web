@@ -22,7 +22,7 @@ export default function NotFound() {
         padding: "60px 24px",
         textAlign: "center",
       }}
-    >
+     data-theme="dark">
       {/* Big drips */}
       <svg
         aria-hidden

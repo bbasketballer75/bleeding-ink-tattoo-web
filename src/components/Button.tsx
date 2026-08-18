@@ -14,7 +14,7 @@
 
 import Link from "next/link";
 import { type ReactNode, type CSSProperties } from "react";
-import { BLEED_RED, BONE_WHITE } from "@/lib/constants";
+import { BLEED_RED, BLEED_RED_BRIGHT, BONE_WHITE } from "@/lib/constants";
 
 type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
@@ -72,8 +72,8 @@ export default function Button(props: ButtonProps) {
       : variant === "secondary"
       ? {
           background: "transparent",
-          color: BLEED_RED,
-          border: `2px solid ${BLEED_RED}`,
+          color: BLEED_RED_BRIGHT,
+          border: `2px solid ${BLEED_RED_BRIGHT}`,
         }
       : {
           background: "transparent",

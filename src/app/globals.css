@@ -204,3 +204,30 @@ body {
     display: none !important;
   }
 }
+
+/* ------------------------------------------------------------
+   DARK-SECTION COLOR OVERRIDE
+   ------------------------------------------------------------
+   Any element with inline style containing bleed-red, #8B0000, or
+   #E63946 -- when nested inside a [data-theme="dark"] ancestor --
+   gets force-overridden to #E63946 via !important. 4.75:1 contrast.
+   This is the only way to override inline JSX styles without rewriting
+   every component. */
+[data-theme=dark] [style*="bleed-red"],
+[data-theme=dark] [style*="8B0000"],
+[data-theme=dark] [style*="#8B0000"],
+[data-theme=dark] [style*="E63946"],
+[data-theme=dark] [style*="#E63946"] {
+  color: #E63946 !important;
+  border-color: #E63946 !important;
+}
+
+/* DARK-SECTION COLOR OVERRIDE - matches [data-theme="dark"] ancestors */
+[data-theme=dark] [style*="bleed-red"],
+[data-theme=dark] [style*="8B0000"],
+[data-theme=dark] [style*="#8B0000"],
+[data-theme=dark] [style*="E63946"],
+[data-theme=dark] [style*="#E63946"] {
+  color: #E63946 !important;
+  border-color: #E63946 !important;
+}

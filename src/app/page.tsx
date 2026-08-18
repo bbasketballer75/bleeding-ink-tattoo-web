@@ -46,7 +46,7 @@ export default function HomePage() {
       />
 
       {/* === 2. Intro strip === */}
-      <section style={{ padding: "80px 24px" }}>
+      <section data-theme="dark" style={{ padding: "80px 24px" }}>
         <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
           <p
             style={{
@@ -155,7 +155,7 @@ export default function HomePage() {
       </section>
 
       {/* === 5. CTA strip === */}
-      <section
+      <section data-theme="dark"
         style={{
           background: BLEED_RED,
           color: BONE_WHITE,
