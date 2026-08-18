@@ -6,8 +6,10 @@
  *   2. Intro strip (tagline + deposit reminder)
  *   3. Artists preview (grid of ArtistCard)
  *   4. Services preview (grid of ServiceCard)
- *   5. CTA strip (Book / Contact)
- *   6. Location (address + Google Maps embed)
+ *   5. Reviews (3 testimonials)
+ *   6. Instagram feed (6 mock posts)
+ *   7. CTA strip (Book / Contact)
+ *   8. Location (address + Google Maps embed)
  */
 
 import type { Metadata } from "next";
@@ -17,6 +19,8 @@ import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import ArtistCard from "@/components/ArtistCard";
 import ServiceCard from "@/components/ServiceCard";
+import InstagramFeed from "@/components/InstagramFeed";
+import Reviews from "@/components/Reviews";
 import { ARTISTS } from "@/data/artists";
 import { SERVICES } from "@/data/services";
 import { SHOP, BLEED_RED, BONE_WHITE, DEPOSIT_MIN } from "@/lib/constants";
@@ -135,6 +139,21 @@ export default function HomePage() {
         </div>
       </section>
 
+
+      {/* === 5. Reviews === */}
+      <section style={{ padding: "80px 24px" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <Reviews />
+        </div>
+      </section>
+
+      {/* === 6. Instagram feed === */}
+      <section style={{ padding: "80px 24px", borderTop: "1px solid rgba(245, 241, 232, 0.08)" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <InstagramFeed />
+        </div>
+      </section>
+
       {/* === 5. CTA strip === */}
       <section
         style={{
@@ -199,7 +218,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === 6. Location === */}
+      {/* === 7. Location === */}
       <section style={{ background: BONE_WHITE, color: "var(--color-ink-black)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div
