@@ -10,6 +10,7 @@ import { Anton, Inter, Permanent_Marker } from "next/font/google";
 import { SHOP, SITE_URL, SITE_DESCRIPTION, OG_IMAGE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MobileStickyCTA from "@/components/MobileStickyCTA";
 import "./globals.css";
 
 // Fonts — Street / Hustle direction
@@ -162,6 +163,7 @@ export default function RootLayout({
         <Navbar />
         <main id="main" style={{ minHeight: "60vh" }}>{children}</main>
         <Footer />
+        <MobileStickyCTA />
       </body>
     </html>
   );

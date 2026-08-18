@@ -11,6 +11,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHeading from "@/components/SectionHeading";
 import { FAQS } from "@/data/faqs";
+import { SITE_URL } from "@/lib/constants";
 
 export const metadata = buildMetadata({
   title: "FAQ",
@@ -18,9 +19,28 @@ export const metadata = buildMetadata({
   path: "/faq",
 });
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/faq#page`,
+  mainEntity: FAQS.map((f, i) => ({
+    "@type": "Question",
+    "@id": `${SITE_URL}/faq#q${i + 1}`,
+    name: f.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.answer,
+    },
+  })),
+};
+
 export default function FaqPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Hero
         variant="compact"
         headline="FAQ"
