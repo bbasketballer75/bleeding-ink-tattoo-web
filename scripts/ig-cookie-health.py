@@ -2,96 +2,70 @@
 """
 Daily IG cookie health check for bleeding-ink-tattoo-web.
 
-Reads scripts/cookies/active.json, reports:
-  - Cookie age (days until sessionid expires)
-  - Validity (is the cookie JSON still well-formed)
-  - Last successful scrape timestamp (from scripts/.ig_export/)
+Thin wrapper around the project-agnostic scrape library. Reads
+scripts/cookies/active.json, reports cookie age + last-scrape freshness.
 
-Intended to run daily via Hermes cron. Exit code reflects severity:
-  0  - healthy (cookies > 21 days remaining, no recent errors)
-  1  - warning (cookies 0-21 days remaining, or no scrape in 14+ days)
-  2  - critical (cookies expired or missing)
-
-Designed to be called by cron and routed to Telegram via 1mcp canary infra.
+Exits non-zero if cookies are EXPIRED or if no active cookies are present.
 """
 
 from __future__ import annotations
-
 import json
 import sys
 from datetime import datetime
 from pathlib import Path
 
-SCRIPTS_DIR = Path(__file__).parent
-sys.path.insert(0, str(SCRIPTS_DIR))
-from lib.ig_auth import (  # noqa: E402
-    load_cookies,
-    cookie_days_remaining,
-    status_label,
-    CookieError,
+sys.path.insert(0, "C:/Users/bbask/Hermes-Workspace/scripts")
+
+from scrape.providers.cookies import (  # noqa: E402
+    load_cookies, CookieError,
+    cookie_days_remaining, status_label,
 )
 
-COOKIE_PATH = SCRIPTS_DIR / "cookies" / "active.json"
-EXPORT_ROOT = SCRIPTS_DIR / ".ig_export"
-PROVENANCE_ROOT = SCRIPTS_DIR.parent / "public" / "images" / "portfolio"
+
+COOKIES_PATH = Path(__file__).resolve().parent / "cookies" / "active.json"
+LAST_SCRAPE_LOG = Path(__file__).resolve().parent / "cookies" / ".last_scrape"
 
 
-def last_scrape_age_days() -> float | None:
-    """Return age in days of the most recent scrape output, or None if no scrape ever."""
-    if not EXPORT_ROOT.exists():
-        return None
-    timestamps = []
-    for artist_dir in EXPORT_ROOT.iterdir():
-        if not artist_dir.is_dir():
-            continue
-        for stamp_dir in artist_dir.iterdir():
-            if stamp_dir.is_dir() and stamp_dir.name[:8].isdigit():
-                timestamps.append(stamp_dir.stat().st_mtime)
-    if not timestamps:
-        return None
-    latest = max(timestamps)
-    age_sec = datetime.now().timestamp() - latest
-    return round(age_sec / 86400, 1)
+def main():
+    print(f"=== IG cookie health ({datetime.now().isoformat(timespec='seconds')}) ===")
 
-
-def main() -> int:
-    if not COOKIE_PATH.exists():
-        print("CRITICAL: no active cookies at scripts/cookies/active.json")
-        print("  action: export cookies from Chrome Cookie-Editor, save there, "
-              "then run scripts/cookie_refresh.py")
+    if not COOKIES_PATH.exists():
+        print(f"CRITICAL: no active cookies at {COOKIES_PATH}")
+        print(f"  action: export cookies from Chrome Cookie-Editor, save there, "
+              f"then run scripts/cookie_refresh.py")
         return 2
 
-    # Load + compute age
     try:
-        storage = load_cookies(COOKIE_PATH)
-        cookie_count = len(storage["cookies"])
+        storage = load_cookies(COOKIES_PATH)
     except CookieError as e:
-        print(f"CRITICAL: cookie file is malformed: {e}")
+        print(f"CRITICAL: active cookies are corrupt: {e}")
         return 2
 
-    raw = json.loads(COOKIE_PATH.read_text())
-    age = cookie_days_remaining(raw)
-    status, emoji = status_label(age)
+    cookies = storage["cookies"]
+    days = cookie_days_remaining(cookies)
+    status, emoji = status_label(days)
+    print(f"cookies: {len(cookies)} loaded, days remaining: {days} ({emoji} {status})")
 
-    scrape_age = last_scrape_age_days()
-    print(f"=== IG cookie health ({datetime.now().strftime('%Y-%m-%d %H:%M')}) ===")
-    print(f"cookies: {cookie_count} loaded, age {age} days ({emoji} {status})")
-    print(f"last scrape: {scrape_age} days ago" if scrape_age is not None else "last scrape: never")
+    if LAST_SCRAPE_LOG.exists():
+        try:
+            mtime = datetime.fromtimestamp(LAST_SCRAPE_LOG.stat().st_mtime)
+            age_days = (datetime.now() - mtime).total_seconds() / 86400
+            print(f"last scrape: {age_days:.1f} days ago ({mtime.isoformat()})")
+            if age_days > 14:
+                print(f"  stale (>14d). Consider re-running update_portfolio.py")
+        except Exception:
+            pass
+    else:
+        print("last scrape: never (no .last_scrape file)")
 
-    # Decide severity
-    if age is None:
-        print(f"WARN: could not compute cookie age")
-        return 1
-    if age <= 0:
-        print(f"CRITICAL: cookies are expired")
+    # Decide exit code
+    if days is not None and days <= 0:
+        print("\n!! cookies are EXPIRED. Refresh from Chrome.")
         return 2
-    if age <= 21:
-        print(f"WARN: cookies expire in {int(age)} days — refresh soon")
+    if status in ("REFRESH_THIS_WEEK", "WATCH"):
+        print(f"\n!! {status} - cookies expire soon. Plan a refresh.")
         return 1
-    if scrape_age is not None and scrape_age > 14:
-        print(f"WARN: portfolio may be stale (no scrape in {int(scrape_age)} days)")
-        return 1
-    print(f"OK: all systems normal")
+    print("\nOK: all systems normal")
     return 0
 
 

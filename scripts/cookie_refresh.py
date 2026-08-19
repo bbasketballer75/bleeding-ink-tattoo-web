@@ -3,155 +3,119 @@
 Cookie refresh utility for bleeding-ink-tattoo-web.
 
 Validates a new IG cookie export, archives the current active.json, and
-replaces active.json with the new cookies. Print a one-line status.
+replaces active.json with the new cookies. Prints a status summary.
 
-USAGE
-=====
-    python scripts/cookie_refresh.py
-    python scripts/cookie_refresh.py --path /path/to/new_cookies.json
-    python scripts/cookie_refresh.py --validate-only
-    python scripts/cookie_refresh.py --dry-run
-
-Exit codes:
-    0  - success
-    1  - invalid cookie file (parse error, missing sessionid, etc.)
-    2  - cookie already expired
-    3  - active.json not found (nothing to archive)
+This is a project-specific wrapper around the project-agnostic
+`scrape.providers.cookies` library.
 """
 
 from __future__ import annotations
-
 import argparse
-import json
 import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
 
-SCRIPTS_DIR = Path(__file__).parent
-sys.path.insert(0, str(SCRIPTS_DIR))
-from lib.ig_auth import (  # noqa: E402
-    load_cookies,
-    cookie_days_remaining,
-    status_label,
-    CookieError,
-    WARN_COOKIE_AGE_DAYS,
-    MAX_COOKIE_AGE_DAYS,
+# Make the library importable
+SCRAPE_LIB = Path(__file__).resolve().parents[2] / "hermes-workspace" / "scripts"
+SCRAPE_LIB_ALT = Path("C:/Users/bbask/Hermes-Workspace/scripts")
+if SCRAPE_LIB_ALT.exists():
+    sys.path.insert(0, str(SCRAPE_LIB_ALT))
+
+from scrape.providers.cookies import (  # noqa: E402
+    load_cookies, summarize, CookieError,
+    cookie_days_remaining, status_label,
 )
 
-COOKIES_DIR = SCRIPTS_DIR / "cookies"
+
+COOKIES_DIR = Path(__file__).resolve().parent / "cookies"
 ACTIVE = COOKIES_DIR / "active.json"
 ARCHIVE = COOKIES_DIR / "archive"
 
 
-def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Refresh the active IG cookies")
-    p.add_argument("--path", type=Path, default=None,
-                   help="Path to new cookie JSON. If omitted, uses the most recent "
-                        "file in scripts/cookies/ that isn't active.json")
-    p.add_argument("--validate-only", action="store_true",
-                   help="Just validate the new cookies, don't replace anything")
-    p.add_argument("--dry-run", action="store_true",
-                   help="Show what would happen without making changes")
-    return p.parse_args()
-
-
-def find_newest_cookie_file() -> Path:
-    """Pick the newest .json file in cookies/ that isn't active.json."""
-    candidates = [
-        p for p in COOKIES_DIR.glob("*.json")
-        if p.name != "active.json" and p.is_file()
-    ]
+def find_newest_unactivated() -> Path | None:
+    """Find the most recently modified file in cookies/ that ISN'T active.json or in archive/."""
+    candidates = []
+    for p in COOKIES_DIR.glob("*.json"):
+        if p.name == "active.json":
+            continue
+        if p.parent.name == "archive":
+            continue
+        candidates.append(p)
     if not candidates:
-        raise FileNotFoundError(
-            f"no new cookie file found in {COOKIES_DIR}. "
-            "Drop the exported cookies JSON here and re-run."
-        )
+        return None
     return max(candidates, key=lambda p: p.stat().st_mtime)
 
 
-def archive_active() -> Path | None:
-    """Move active.json into archive/<timestamp>.json. Returns the new path."""
-    if not ACTIVE.exists():
-        return None
-    ARCHIVE.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-    dest = ARCHIVE / f"{stamp}.json"
-    shutil.move(str(ACTIVE), str(dest))
-    return dest
+def main():
+    ap = argparse.ArgumentParser(description="Refresh the active IG cookies.")
+    ap.add_argument("--path", help="Path to new cookie JSON. If omitted, uses the most "
+                                  "recent file in cookies/ that isn't active.json.")
+    ap.add_argument("--validate-only", action="store_true",
+                    help="Just validate the new cookies, don't replace anything.")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="Show what would happen without making changes.")
+    args = ap.parse_args()
 
-
-def main() -> int:
-    args = parse_args()
-
-    # Find the source file
-    if args.path:
-        src = args.path
-    else:
-        try:
-            src = find_newest_cookie_file()
-        except FileNotFoundError as e:
-            print(f"!! {e}")
-            return 1
-
-    if not src.exists():
-        print(f"!! file not found: {src}")
+    # Locate source
+    src = Path(args.path).resolve() if args.path else find_newest_unactivated()
+    if src is None or not src.exists():
+        print(f"!! no new cookie file found in {COOKIES_DIR}. "
+              "Drop the exported cookies JSON here and re-run.")
         return 1
+
+    # Validate (raises CookieError if bad)
     print(f"source: {src}")
-
-    # Read raw JSON to compute age (load_cookies requires Playwright but we don't need it for validation)
-    try:
-        raw = json.loads(src.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as e:
-        print(f"!! invalid JSON in {src}: {e}")
-        return 1
-
-    age = cookie_days_remaining(raw)
-    status, emoji = status_label(age)
-    print(f"cookie age: {age} days ({emoji} {status})")
-
-    # Validate (uses lib.ig_auth.load_cookies for the full check)
     try:
         storage = load_cookies(src)
     except CookieError as e:
-        print(f"!! {e}")
+        print(f"!! invalid cookie file: {e}")
         return 1
-    cookie_count = len(storage["cookies"])
-    print(f"validation: {emoji} {cookie_count} cookies parsed OK")
 
-    if age is not None and age <= 0:
-        print(f"!! cookies are ALREADY EXPIRED (age: {age} days). "
-              "Re-export from a logged-in Chrome session.")
-        return 2
+    cookies = storage["cookies"]
+    days = cookie_days_remaining(cookies)
+    status, emoji = status_label(days)
+    print(f"validation: {emoji} {len(cookies)} cookies parsed OK")
+    print(f"days remaining: {days} ({emoji} {status})")
+    if days is not None and days <= 0:
+        print(f"!! cookies are EXPIRED. Don't bother activating; re-export.")
+
+    # Show what would happen
+    if ACTIVE.exists():
+        try:
+            existing = summarize(ACTIVE)
+            print(f"\ncurrent active.json: {existing['count']} cookies, "
+                  f"{existing['days_remaining']} days remaining "
+                  f"({existing['emoji']} {existing['status']})")
+        except CookieError as e:
+            print(f"\n!! existing active.json is corrupt: {e}")
 
     if args.validate_only:
-        print(f"validate-only: cookies look good. Run without --validate-only to activate.")
+        print("\nvalidate-only: cookies look good. Run without --validate-only to activate.")
         return 0
 
-    # Archive current active.json (if any)
-    if ACTIVE.exists():
-        if args.dry_run:
-            print(f"dry-run: would archive {ACTIVE} -> archive/<timestamp>.json")
-        else:
-            archived = archive_active()
-            print(f"archived: {archived.relative_to(SCRIPTS_DIR)}")
-    else:
-        print(f"no existing active.json to archive")
-
-    # Move new cookies into place
     if args.dry_run:
-        print(f"dry-run: would activate {src} -> {ACTIVE}")
-    else:
-        shutil.copy2(str(src), str(ACTIVE))
-        print(f"activated: {ACTIVE.relative_to(SCRIPTS_DIR)}")
+        print(f"\ndry-run: would activate {src} -> {ACTIVE}")
+        return 0
+
+    # Archive existing active.json
+    if ACTIVE.exists():
+        ARCHIVE.mkdir(exist_ok=True)
+        ts = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+        archived = ARCHIVE / f"{ts}.json"
+        shutil.copy2(ACTIVE, archived)
+        print(f"archived: {archived}")
+
+    # Activate new cookies
+    shutil.copy2(src, ACTIVE)
+    print(f"activated: {ACTIVE}")
 
     # Summary
     print(f"\n=== SUMMARY ===")
     print(f"new cookies: {src.name}")
-    print(f"age: {age} days ({emoji} {status})")
-    if age is not None and age <= WARN_COOKIE_AGE_DAYS:
-        next_warn = "today" if age <= MAX_COOKIE_AGE_DAYS else f"in {int(age)} days"
-        print(f"alert: refresh {next_warn} (or sooner)")
+    print(f"days remaining: {days} ({emoji} {status})")
+    if days is not None and days <= 7:
+        print(f"alert: refresh in {int(days)} days (or sooner)")
     print(f"\nNext step: python scripts/update_portfolio.py --artist isiah-jackson")
     return 0
 
