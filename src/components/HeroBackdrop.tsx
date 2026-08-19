@@ -8,9 +8,16 @@
  * - A central stylized anchor (cross/star motif)
  *
  * Drawn behind the headline content, fixed to the section.
+ *
+ * `opacity` (default 0.4) controls overall visibility; parent (Hero.tsx)
+ * may pass a higher value when other depth layers are added beneath.
  */
 
-export default function HeroBackdrop() {
+interface HeroBackdropProps {
+  opacity?: number;
+}
+
+export default function HeroBackdrop({ opacity = 0.4 }: HeroBackdropProps = {}) {
   return (
     <svg
       aria-hidden
@@ -21,7 +28,7 @@ export default function HeroBackdrop() {
         inset: 0,
         width: "100%",
         height: "100%",
-        opacity: 0.4,
+        opacity: opacity,
         pointerEvents: "none",
         zIndex: 0,
       }}
@@ -41,8 +48,8 @@ export default function HeroBackdrop() {
       {/* Background glow */}
       <rect width="100%" height="100%" fill="url(#bleedGlow)" />
 
-      {/* Stencil grid lines */}
-      <g stroke="#8B0000" strokeWidth="0.5" opacity="0.35">
+      {/* Stencil grid lines — bumped opacity for legibility */}
+      <g stroke="#8B0000" strokeWidth="0.5" opacity="0.5">
         {Array.from({ length: 18 }).map((_, i) => (
           <line key={`h${i}`} x1="0" y1={50 * i} x2="1440" y2={50 * i} />
         ))}
@@ -51,19 +58,9 @@ export default function HeroBackdrop() {
         ))}
       </g>
 
-      {/* Stylized cross/anchor — left side */}
-      <g transform="translate(180, 500)" stroke="#F5F1E8" strokeWidth="2" fill="none" opacity="0.4">
-        <line x1="0" y1="-60" x2="0" y2="60" />
-        <line x1="-60" y1="0" x2="60" y2="0" />
-        <circle cx="0" cy="0" r="40" />
-        <circle cx="0" cy="0" r="70" />
-      </g>
-
-      {/* Stylized star/dagger — right side */}
-      <g transform="translate(1260, 350)" stroke="#F5F1E8" strokeWidth="2" fill="none" opacity="0.3">
-        <path d="M -50 0 L 50 0 M 0 -50 L 0 50 M -35 -35 L 35 35 M -35 35 L 35 -35" />
-        <circle cx="0" cy="0" r="60" />
-      </g>
+      {/* (Decorative cross+star removed 2026-08-18: too generic, disconnected from headline.
+          Kept the drip motifs and scattered texture — they read as authentic tattoo stencil
+          rather than arbitrary geometric shapes.) */}
 
       {/* Drip forms */}
       <g fill="#8B0000" opacity="0.5">
