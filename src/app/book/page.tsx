@@ -45,17 +45,19 @@ export default function BookPage() {
 
       <section style={{ padding: "60px 20px", background: "#0A0A0A" }}>
         <div
+          className="book-grid"
           style={{
             maxWidth: 800,
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr)",
-            gap: 48,
+            gridTemplateColumns: "1fr",  // mobile: single column
+            gap: 32,
           }}
         >
           {/* Left: form */}
           <div>
             <h2
+              className="book-form-h2"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: 26,
@@ -64,11 +66,13 @@ export default function BookPage() {
                 color: BONE_WHITE,
                 textTransform: "uppercase",
                 letterSpacing: "-0.01em",
+                display: "none",  // hidden on mobile — Hero title already labels the page
               }}
             >
               Tell us about your idea
             </h2>
             <p
+              className="book-form-p"
               style={{
                 fontSize: 15,
                 lineHeight: 1.6,
@@ -76,6 +80,7 @@ export default function BookPage() {
                 opacity: 0.7,
                 margin: 0,
                 marginBottom: 24,
+                display: "none",  // hidden on mobile (keep form above the fold)
               }}
             >
               The more detail — style, size, placement, references — the faster we can give you a useful reply.
@@ -83,8 +88,8 @@ export default function BookPage() {
             <ConsultationForm />
           </div>
 
-          {/* Right: what to expect + deposit info */}
-          <aside>
+          {/* Right: what to expect + deposit info — STICKY so it stays visible while user scrolls the form */}
+          <aside style={{ position: "sticky", top: 80, alignSelf: "flex-start" }}>
             <div
               style={{
                 background: "rgba(245, 241, 232, 0.05)",
@@ -194,6 +199,12 @@ export default function BookPage() {
             </div>
           </aside>
         </div>
+        <style>{`
+          @media (min-width: 640px) {
+            .book-form-h2, .book-form-p { display: block !important; }
+            .book-grid { gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr) !important"; gap: "48px !important"; }
+          }
+        `}</style>
       </section>
     </>
   );

@@ -46,9 +46,16 @@ export default function PortfolioPage() {
         { label: "Portfolio", href: "/portfolio" }
       ]} />
 
-      <section style={{ padding: "60px 20px", background: "#0A0A0A" }}>
+      <section
+        style={{
+          padding: "40px 20px 60px",  // 40px top instead of 60px — grid starts higher
+          background: "#0A0A0A",
+        }}
+      >
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          {/* H2: hidden on mobile (the Hero already provides the page title), visible on sm+ */}
           <h2
+            className="portfolio-intro-h2"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(28px, 4vw, 38px)",
@@ -57,11 +64,14 @@ export default function PortfolioPage() {
               color: BONE_WHITE,
               textTransform: "uppercase",
               letterSpacing: "-0.01em",
+              display: "none",  // hidden on mobile (default no-media-query)
             }}
           >
             The Studio Collection
           </h2>
+          {/* Intro paragraph: hidden on mobile to keep the grid above the fold */}
           <p
+            className="portfolio-intro-p"
             style={{
               fontSize: 15,
               lineHeight: 1.6,
@@ -70,14 +80,21 @@ export default function PortfolioPage() {
               maxWidth: 720,
               margin: 0,
               marginBottom: 32,
+              display: "none",  // hidden on mobile
             }}
           >
             A curated sample of recent work across our core styles. Tap a filter
             to narrow by aesthetic — every piece here was designed, drawn, and
             inked in-studio at the Johnstown Galleria.
           </p>
+          {/* Filter chips + grid immediately follow — mobile users see the grid first */}
           <PortfolioGrid />
         </div>
+        <style>{`
+          @media (min-width: 640px) {
+            .portfolio-intro-h2, .portfolio-intro-p { display: block !important; }
+          }
+        `}</style>
       </section>
 
       {/* CTA strip */}
