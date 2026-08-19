@@ -1,9 +1,8 @@
 /**
  * Reviews — 3 testimonial cards on home page.
  *
- * Demo-only — all names/text are fabricated. In production, real reviews
- * would come from Google Business Profile API or be entered by the shop
- * owner.
+ * Photo style is photorealistic (Dreamlike-Photoreal SD 1.5 via ComfyUI).
+ * Names + quotes are demo content; swap for real Google reviews when ready.
  */
 
 import { BONE_WHITE, BLEED_RED } from "@/lib/constants";
@@ -14,6 +13,7 @@ interface Review {
   rating: number; // 1-5
   style: string; // style of work
   text: string;
+  photo: string; // /images/generated/<file>.png
 }
 
 const REVIEWS: Review[] = [
@@ -23,6 +23,7 @@ const REVIEWS: Review[] = [
     rating: 5,
     style: "Coverup",
     text: "Had an old name I needed gone — Isiah turned it into a compass rose that actually means something to me now. Bold lines, clean color, looks like it was always supposed to be there. Six months healed, still looks fresh.",
+    photo: "/images/generated/review-marcus.png",
   },
   {
     name: "Sarah K.",
@@ -30,6 +31,7 @@ const REVIEWS: Review[] = [
     rating: 5,
     style: "Color Realism",
     text: "Courtney did a phoenix thigh piece for me. The color work is unreal — saturated oranges and teals that pop without looking cartoonish. Took her time to get the placement right and made sure I was comfortable the whole session.",
+    photo: "/images/generated/review-sarah.png",
   },
   {
     name: "Devon R.",
@@ -37,6 +39,7 @@ const REVIEWS: Review[] = [
     rating: 5,
     style: "Traditional",
     text: "Drove past this shop a hundred times before I went in. Wish I'd gone sooner. Got a traditional snake-and-dagger from Isiah, walked out with exactly what I wanted. Walk-in friendly, no attitude, fair pricing.",
+    photo: "/images/generated/review-devon.png",
   },
 ];
 
@@ -98,11 +101,25 @@ export default function Reviews() {
             style={{
               background: "rgba(245, 241, 232, 0.04)",
               border: "1px solid rgba(245, 241, 232, 0.12)",
-              padding: "28px 28px 32px",
+              padding: "0 0 28px",
               borderLeft: `4px solid ${BLEED_RED}`,
+              overflow: "hidden",
             }}
           >
-            <div style={{ marginBottom: 16 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={review.photo}
+              alt={`${review.name}, ${review.style} client`}
+              loading="lazy"
+              style={{
+                display: "block",
+                width: "100%",
+                height: 260,
+                objectFit: "cover",
+                background: "#0A0A0A",
+              }}
+            />
+            <div style={{ padding: "20px 28px 0" }}>
               {/* Star rating — div with role="img" so aria-label is valid */}
               <div
                 role="img"
@@ -140,13 +157,14 @@ export default function Reviews() {
 
             <div
               style={{
-                paddingTop: 16,
+                padding: "16px 28px 0",
                 borderTop: "1px solid rgba(245, 241, 232, 0.1)",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "baseline",
                 flexWrap: "wrap",
                 gap: 8,
+                marginTop: 16,
               }}
             >
               <div>

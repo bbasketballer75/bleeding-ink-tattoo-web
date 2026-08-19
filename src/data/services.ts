@@ -18,6 +18,7 @@ export const SERVICES: Service[] = [
       "Every custom tattoo starts with a free consultation. We'll talk through placement, size, style, and budget, then sketch and refine before any ink goes down. Most custom work needs 2-4 hours per session.",
     startingPrice: "From $150",
     duration: "2–4 hr / session",
+    image: "/images/generated/service-custom.png",
   },
   {
     slug: "coverups",
@@ -27,6 +28,7 @@ export const SERVICES: Service[] = [
       "Coverups require a careful eye — color, density, and placement all matter. Some coverups can be done in one session; others need a laser pre-treatment to lighten the old ink first. Consultation is free; we'll tell you upfront what's realistic.",
     startingPrice: "From $250",
     duration: "Usually 1 session",
+    image: "/images/generated/service-coverup.png",
   },
   {
     slug: "color-work",
@@ -34,6 +36,7 @@ export const SERVICES: Service[] = [
     shortDescription: "Saturated, long-lasting color. We work in a range of palettes — saturated full-color pieces, soft pastels, traditional Americana — whatever fits the design.",
     startingPrice: "From $180",
     duration: "varies",
+    image: "/images/generated/service-color.png",
   },
   {
     slug: "consultations",
@@ -42,6 +45,7 @@ export const SERVICES: Service[] = [
     longDescription: `Walk-ins welcome for consultations. No appointment needed. We'll look at placement, size, style, and budget, and give you a realistic timeline and quote. Deposits are $${DEPOSIT_MIN} (non-refundable) when you're ready to book a session.`,
     startingPrice: "Always free",
     duration: "15–30 min",
+    image: "/images/generated/service-walkins.png",
   },
 ];
 

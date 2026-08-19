@@ -16,13 +16,28 @@ export default function ServiceCard({ service }: ServiceCardProps) {
       style={{
         background: "var(--color-bone-white)",
         color: "var(--color-ink-black)",
-        padding: 32,
         display: "flex",
         flexDirection: "column",
-        gap: 16,
         border: "1px solid rgba(10, 10, 10, 0.08)",
+        overflow: "hidden",
       }}
     >
+      {service.image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={service.image}
+          alt={`${service.name} — sketch concept`}
+          loading="lazy"
+          style={{
+            display: "block",
+            width: "100%",
+            height: 220,
+            objectFit: "cover",
+            background: "#F5F1E8",
+          }}
+        />
+      )}
+      <div style={{ padding: 32, display: "flex", flexDirection: "column", gap: 16, flex: 1 }}>
       <h3
         style={{
           fontFamily: "var(--font-display)",
@@ -112,6 +127,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         >
           Get a quote →
         </Link>
+      </div>
       </div>
     </div>
   );

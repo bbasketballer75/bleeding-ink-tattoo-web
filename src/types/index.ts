@@ -33,6 +33,7 @@ export interface Service {
   longDescription?: string;
   startingPrice?: string;
   duration?: string;
+  image?: string;  // /images/generated/<file>.png (sketch-style AI illustration)
 }
 
 export interface FAQ {
