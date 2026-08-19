@@ -52,9 +52,14 @@ scripts/ig_cookies.json
 # IG scrape export output (local-only)
 scripts/.ig_export/
 # IG cookies — local-only (never commit)
+# Ignore ALL .json files in the cookies dir EXCEPT the README and archive (for audit trail)
 scripts/cookies/active.json
 scripts/cookies/.test_fixtures.json
-scripts/cookies/archive/
+scripts/cookies/.*.json
+# DO ignore: scripts/cookies/*.json (any cookie export)
+# DO NOT ignore: scripts/cookies/README.md (commit the docs)
+!scripts/cookies/README.md
+!scripts/cookies/archive/
 
 # Python
 __pycache__/
@@ -66,3 +71,10 @@ scripts/.cookie_refresh_status.json
 scripts/cookies/*_test_*.json
 scripts/cookies/*_v*.json
 scripts/cookies/watcher_test_*.json
+
+
+# Catch-all: any .json file dropped into scripts/cookies/ (cookies, exports, fixtures)
+# Only README.md and archive/ contents get committed.
+scripts/cookies/*.json
+!scripts/cookies/README.md
+!scripts/cookies/archive/**
