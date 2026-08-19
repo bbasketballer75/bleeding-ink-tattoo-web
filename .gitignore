@@ -47,3 +47,7 @@ next-env.d.ts
 # Wrangler dev artifacts
 .wrangler/
 .open-next/
+# Local-only Instagram cookies (never commit)
+scripts/ig_cookies.json
+# IG scrape export output (local-only)
+scripts/.ig_export/

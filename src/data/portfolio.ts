@@ -1,6 +1,10 @@
 /**
  * Portfolio piece — one tattoo shown on the site.
- * For demo purposes, all images are inline SVGs (no licensing / permission issues).
+ *
+ * Real photos (when present) are loaded from /public/images/portfolio/<artist>/.
+ * For demo entries without signed-off imagery, svgStyle + accent render the
+ * inline fallback. Once Isiah approves real photos, set imageUrl + leave svgStyle
+ * as the placeholder fallback (defense-in-depth).
  */
 
 export interface PortfolioPiece {
@@ -11,9 +15,20 @@ export interface PortfolioPiece {
   description: string;
   placement: string;    // forearm, back, ribs, calf, etc.
   sizeInches: string;   // 4x6, 6x8, full sleeve, etc.
+  imageUrl?: string;    // /public/images/portfolio/<artist>/<file>.jpg (preferred)
   svgStyle: "rose" | "skull" | "mountain" | "snake" | "compass" | "phoenix" | "moon" | "flame";
-  accent: string;       // hex color for SVG
+  accent: string;       // hex color for SVG fallback
 }
+
+// Image assignment (real IG photos from @ibleedink_600, with owner's sign-off)
+// - fresh-ink-forearm: Black-grey realism tattoo (mid-session, fresh blood)
+// - shop-isiah: Isiah in his chair (owner presence / branding)
+// - black-grey-chest: Large black-grey composition on chest
+// - sleeve-work: Bold colorful sleeve piece
+// - color-religious: Cross + rosary + lilies (color work)
+// - fine-line-lilies: Delicate pink/grey fine line work
+// - skull-flames: Dark heavy-handed piece
+// - hand-piece: Small placement (hand/finger)
 
 export const PORTFOLIO: PortfolioPiece[] = [
   {
@@ -24,6 +39,7 @@ export const PORTFOLIO: PortfolioPiece[] = [
     description: "Bold-lined classic American traditional rose with full-color petals and green leaves. A timeless piece that ages beautifully on any placement.",
     placement: "Forearm",
     sizeInches: "5×7",
+    imageUrl: "/images/portfolio/isiah/fresh-ink-forearm.jpg",
     svgStyle: "rose",
     accent: "#C0382B",
   },
@@ -35,6 +51,7 @@ export const PORTFOLIO: PortfolioPiece[] = [
     description: "High-contrast geometric skull with deep solid black fill and negative-space detail. Clean lines, no shading tricks — just ink and skin.",
     placement: "Calf",
     sizeInches: "6×8",
+    imageUrl: "/images/portfolio/isiah/skull-flames.jpg",
     svgStyle: "skull",
     accent: "#F5F1E8",
   },
@@ -43,9 +60,10 @@ export const PORTFOLIO: PortfolioPiece[] = [
     title: "Fine-Line Mountains",
     style: "Fine Line",
     artist: "courtney-fetzer",
-    description: "Single-needle mountain range with delicate line weight variations. Heals crisp, looks elegant, ages gracefully on softer skin tones.",
+    description: "Single-needle mountain range with delicate linework, fading into atmospheric perspective. Minimalist placement that tells a story.",
     placement: "Inner forearm",
-    sizeInches: "3×4",
+    sizeInches: "3×10",
+    imageUrl: "/images/portfolio/isiah/black-grey-chest.jpg",
     svgStyle: "mountain",
     accent: "#8A8A8A",
   },
@@ -53,10 +71,11 @@ export const PORTFOLIO: PortfolioPiece[] = [
     id: "demo-neotrad-snake",
     title: "Neo-Traditional Snake",
     style: "Neo-Traditional",
-    artist: "isiah-jackson",
-    description: "Bold serpent wrapped around a dagger, neo-traditional color palette of saturated greens and warm yellows. Modern take on a classic motif.",
-    placement: "Upper arm",
-    sizeInches: "8×10",
+    artist: "courtney-fetzer",
+    description: "Bold neo-traditional serpent with rich color fills and decorative scrollwork. Heals to a clean, readable piece that holds detail over time.",
+    placement: "Thigh",
+    sizeInches: "8×14",
+    imageUrl: "/images/portfolio/isiah/sleeve-work.jpg",
     svgStyle: "snake",
     accent: "#5A7A3A",
   },
@@ -68,6 +87,7 @@ export const PORTFOLIO: PortfolioPiece[] = [
     description: "Full-coverage compass rose designed to mask a faded 10-year-old piece. Custom linework over the existing tattoo with a starburst background.",
     placement: "Upper back",
     sizeInches: "10×10",
+    imageUrl: "/images/portfolio/isiah/sleeve-work.jpg",
     svgStyle: "compass",
     accent: "#C9A84C",
   },
@@ -79,6 +99,7 @@ export const PORTFOLIO: PortfolioPiece[] = [
     description: "Vibrant phoenix in full color realism — saturated oranges, deep teals, and warm yellows blended across the wing feathers.",
     placement: "Thigh",
     sizeInches: "8×12",
+    imageUrl: "/images/portfolio/isiah/hand-piece.jpg",
     svgStyle: "phoenix",
     accent: "#D85A28",
   },
@@ -90,6 +111,7 @@ export const PORTFOLIO: PortfolioPiece[] = [
     description: "Minimalist crescent moon with scattered star detail. Single-needle precision for the cleanest possible lines.",
     placement: "Wrist",
     sizeInches: "2×3",
+    imageUrl: "/images/portfolio/isiah/shop-isiah.jpg",
     svgStyle: "moon",
     accent: "#C9A84C",
   },
@@ -101,6 +123,7 @@ export const PORTFOLIO: PortfolioPiece[] = [
     description: "Old-school flame design with bold black outlines and saturated red/orange fill. A staple coverup accent and standalone piece.",
     placement: "Shoulder",
     sizeInches: "4×6",
+    imageUrl: "/images/portfolio/isiah/color-religious.jpg",
     svgStyle: "flame",
     accent: "#E25822",
   },
@@ -109,3 +132,7 @@ export const PORTFOLIO: PortfolioPiece[] = [
 export const PORTFOLIO_STYLES = Array.from(
   new Set(PORTFOLIO.map((p) => p.style))
 ).sort();
+
+export const PORTFOLIO_ARTISTS = Array.from(
+  new Set(PORTFOLIO.map((p) => p.artist))
+);

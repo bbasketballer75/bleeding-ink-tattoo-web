@@ -21,8 +21,9 @@ export interface PortfolioPiece {
   description: string;
   placement: string;    // forearm, back, ribs, calf, etc.
   sizeInches: string;   // 4x6, 6x8, full sleeve, etc.
+  imageUrl?: string;    // /public/images/portfolio/<artist>/<file>.jpg (preferred over svgStyle)
   svgStyle: "rose" | "skull" | "mountain" | "snake" | "compass" | "phoenix" | "moon" | "flame";
-  accent: string;       // hex color for SVG
+  accent: string;       // hex color for SVG fallback
 }
 
 export interface Service {

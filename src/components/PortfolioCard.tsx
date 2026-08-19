@@ -24,19 +24,39 @@ export default function PortfolioCard({ piece }: PortfolioCardProps) {
         overflow: "hidden",
       }}
     >
-      {/* Image area — SVG portrait */}
+      {/* Image area — real photo if available, else SVG portrait */}
       <div
         style={{
           aspectRatio: "1 / 1",
           width: "100%",
-          background: `linear-gradient(135deg, ${piece.accent}22 0%, #0A0A0A 100%)`,
+          background: piece.imageUrl
+            ? "#0A0A0A"
+            : `linear-gradient(135deg, ${piece.accent}22 0%, #0A0A0A 100%)`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: 24,
+          padding: piece.imageUrl ? 0 : 24,
+          overflow: "hidden",
         }}
       >
-        <TattooSVG style={piece.svgStyle} accent={piece.accent} />
+        {piece.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={piece.imageUrl}
+            alt={`${piece.title} — ${piece.style} tattoo by ${
+              piece.artist === "isiah-jackson" ? "Isiah Jackson" : "Courtney Fetzer"
+            }`}
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        ) : (
+          <TattooSVG style={piece.svgStyle} accent={piece.accent} />
+        )}
       </div>
 
       {/* Body */}
