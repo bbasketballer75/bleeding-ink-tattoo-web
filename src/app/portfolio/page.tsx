@@ -17,8 +17,8 @@ import { BONE_WHITE } from "@/lib/constants";
 
 export const metadata = buildMetadata({
   title: "Portfolio",
-  description:
-    "Browse portfolio pieces by Isiah Jackson and Courtney Fetzer — traditional, fine line, blackwork, neo-traditional, coverups, and color work. Filter by style.",
+  description: "Browse portfolio pieces by Isiah Jackson and Courtney Fetzer — traditional, fine line, blackwork, neo-traditional, coverups, and color work. Filter by style.",
+  artist: "isiah-jackson",
   path: "/portfolio",
   image: "/og/portfolio.svg",
   keywords: [

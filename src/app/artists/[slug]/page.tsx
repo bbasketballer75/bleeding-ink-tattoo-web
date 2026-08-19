@@ -10,7 +10,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Hero from "@/components/Hero";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import PortfolioCard from "@/components/PortfolioCard";
 import { ARTISTS, getArtist } from "@/data/artists";
+import { PORTFOLIO } from "@/data/portfolio";
 import { SHOP, BLEED_RED, SITE_URL } from "@/lib/constants";
 
 interface PageProps {
@@ -29,7 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${artist.name} — ${artist.role}`,
     description: artist.bio,
     path: `/artists/${artist.slug}`,
-    image: "/og/artists.svg",  });
+    artist: artist.slug,
+  });
 }
 
 export default async function ArtistDetailPage({ params }: PageProps) {
@@ -163,6 +166,50 @@ export default async function ArtistDetailPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* Recent work — shows up to 4 of this artist's portfolio pieces (with real photos) */}
+      {(() => {
+        const artistPieces = PORTFOLIO.filter((p) => p.artist === artist.slug).slice(0, 4);
+        if (artistPieces.length === 0) return null;
+        return (
+          <section style={{ padding: "60px 24px 80px", background: "#0A0A0A" }}>
+            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between",
+                            flexWrap: "wrap", gap: 16, marginBottom: 32 }}>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(28px, 4vw, 38px)",
+                    textTransform: "uppercase",
+                    margin: 0,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  Recent work
+                </h2>
+                <Link
+                  href="/portfolio"
+                  className="btn-secondary"
+                  style={{ fontSize: 13 }}
+                >
+                  See full portfolio →
+                </Link>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gap: 20,
+                }}
+              >
+                {artistPieces.map((piece) => (
+                  <PortfolioCard key={piece.id} piece={piece} />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* JSON-LD: Person schema for this artist */}
       <script

@@ -25,14 +25,16 @@ import Reviews from "@/components/Reviews";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCard from "@/components/ServiceCard";
 import InstagramFeed from "@/components/InstagramFeed";
+import PortfolioCard from "@/components/PortfolioCard";
 import { ARTISTS } from "@/data/artists";
 import { SERVICES } from "@/data/services";
+import { PORTFOLIO } from "@/data/portfolio";
 import { telLink, mapsEmbedUrl, mapsLink, formatUSD } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "Bleeding Ink — Custom Tattoos in Johnstown, PA",
-  description:
-    "Custom tattoos, coverups, and color work at Bleeding Ink inside the Johnstown Galleria. Walk-ins welcome. Free consultation. $65 deposit.",
+  description: "Custom tattoos, coverups, and color work at Bleeding Ink inside the Johnstown Galleria. Walk-ins welcome. Free consultation. $65 deposit.",
+  artist: "isiah-jackson",
   path: "/",
   image: "/og-default.svg",
   keywords: [
@@ -153,6 +155,62 @@ export default function HomePage() {
       </section>
 
       {/* === 4. Services preview — LIGHT bg === */}
+      {/* === 3.5. Featured work — DARK bg (real IG photos) === */}
+      {(() => {
+        const featured = PORTFOLIO.filter((p) => p.artist === "isiah-jackson").slice(0, 4);
+        if (featured.length === 0) return null;
+        return (
+          <section style={{ padding: "60px 24px 80px" }}>
+            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between",
+                            flexWrap: "wrap", gap: 16, marginBottom: 32 }}>
+                <div>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontFamily: "var(--font-marker)",
+                      fontSize: 14,
+                      color: BLEED_RED,
+                      marginBottom: 8,
+                    }}
+                  >
+                    Fresh ink
+                  </span>
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(32px, 4vw, 44px)",
+                      textTransform: "uppercase",
+                      margin: 0,
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    Recent work
+                  </h2>
+                </div>
+                <Link
+                  href="/portfolio"
+                  className="btn-secondary"
+                  style={{ fontSize: 13 }}
+                >
+                  See full portfolio →
+                </Link>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gap: 20,
+                }}
+              >
+                {featured.map((piece) => (
+                  <PortfolioCard key={piece.id} piece={piece} />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
       <section style={{ background: BONE_WHITE, color: "var(--color-ink-black)", padding: "80px 24px" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>

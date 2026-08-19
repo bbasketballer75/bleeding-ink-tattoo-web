@@ -13,6 +13,7 @@ import { ARTISTS } from "@/data/artists";
 export const metadata = buildMetadata({
   title: "Our Artists",
   description: "Meet the artists at Bleeding Ink Tattooing in Johnstown, PA. Custom tattoos, coverups, color work, apprentices.",
+  artist: "isiah-jackson",
   path: "/artists",
     image: "/og/artists.svg",});
 

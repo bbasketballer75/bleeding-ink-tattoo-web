@@ -5,6 +5,7 @@
 
 import type { Metadata } from "next";
 import { SHOP, SITE_URL, SITE_DESCRIPTION, OG_IMAGE } from "@/lib/constants";
+import { pickFeaturedPhoto } from "@/lib/featured-photo";
 
 export interface PageMeta {
   /** Page title — no site name, the layout's title.template appends it. */
@@ -15,6 +16,10 @@ export interface PageMeta {
   path?: string;
   /** Optional image override; default OG_IMAGE. */
   image?: string;
+  /** Artist slug — picks a real photo of that artist for OG cards. */
+  artist?: string;
+  /** Style filter — picks a photo of that style for OG cards. */
+  style?: string;
   /** Defaults to true. Set false on the /book placeholder so it doesn't rank. */
   indexable?: boolean;
   /** Optional keywords for the meta keywords tag. */
@@ -31,12 +36,14 @@ export function buildMetadata({
   description,
   path = "/",
   image,
+  artist,
+  style,
   indexable = true,
   keywords,
 }: PageMeta): Metadata {
   const url = `${SITE_URL}${path === "/" ? "" : path}`;
   const desc = description ?? SITE_DESCRIPTION;
-  const img = image ?? OG_IMAGE;
+  const img = image ?? pickFeaturedPhoto({ artist, style });
   return {
     title,
     description: desc,
