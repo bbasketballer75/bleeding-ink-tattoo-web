@@ -59,3 +59,10 @@ scripts/cookies/archive/
 # Python
 __pycache__/
 *.pyc
+
+# IG cookie helper runtime state (regenerated each refresh)
+scripts/.cookie_refresh_status.json
+# IG cookie helper test fixtures (created during dev)
+scripts/cookies/*_test_*.json
+scripts/cookies/*_v*.json
+scripts/cookies/watcher_test_*.json
