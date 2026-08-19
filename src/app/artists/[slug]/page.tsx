@@ -167,49 +167,100 @@ export default async function ArtistDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Recent work — shows up to 4 of this artist's portfolio pieces (with real photos) */}
-      {(() => {
-        const artistPieces = PORTFOLIO.filter((p) => p.artist === artist.slug).slice(0, 4);
-        if (artistPieces.length === 0) return null;
-        return (
-          <section style={{ padding: "60px 24px 80px", background: "#0A0A0A" }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between",
-                            flexWrap: "wrap", gap: 16, marginBottom: 32 }}>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(28px, 4vw, 38px)",
-                    textTransform: "uppercase",
-                    margin: 0,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  Recent work
-                </h2>
-                <Link
-                  href="/portfolio"
-                  className="btn-secondary"
-                  style={{ fontSize: 13 }}
-                >
-                  See full portfolio →
-                </Link>
-              </div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                  gap: 20,
-                }}
-              >
-                {artistPieces.map((piece) => (
-                  <PortfolioCard key={piece.id} piece={piece} />
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      })()}
+      {/* Recent work — shows up to 4 of this artist's portfolio pieces (with real photos).
+                If the artist has no real portfolio data (e.g., their IG is private or
+                we're still awaiting sign-off), show an honest "coming soon" notice
+                instead of fabricating their work from another artist's photos. */}
+            {(() => {
+              const artistPieces = PORTFOLIO.filter((p) => p.artist === artist.slug && p.imageUrl).slice(0, 4);
+              if (artistPieces.length === 0) {
+                // Artist has no real photo portfolio yet. Be explicit about it.
+                return (
+                  <section style={{ padding: "60px 24px 80px", background: "#0A0A0A" }}>
+                    <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
+                      <h2
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontSize: "clamp(28px, 4vw, 38px)",
+                          textTransform: "uppercase",
+                          margin: 0,
+                          marginBottom: 16,
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        Recent work
+                      </h2>
+                      <p
+                        style={{
+                          fontSize: 16,
+                          lineHeight: 1.6,
+                          opacity: 0.85,
+                          margin: 0,
+                          marginBottom: 24,
+                        }}
+                      >
+                        {artist.name.split(" ")[0]}&rsquo;s portfolio is being prepared.
+                        Real client work photos will appear here as they&rsquo;re cleared for the site.
+                        In the meantime, see{" "}
+                        <Link href="/portfolio" style={{ color: BLEED_RED }}>
+                          Isiah&rsquo;s portfolio
+                        </Link>
+                        {" "}for representative shop work.
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 13,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.1em",
+                          opacity: 0.5,
+                          margin: 0,
+                        }}
+                      >
+                        Photos clear with each client before publishing
+                      </p>
+                    </div>
+                  </section>
+                );
+              }
+              return (
+                <section style={{ padding: "60px 24px 80px", background: "#0A0A0A" }}>
+                  <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between",
+                                  flexWrap: "wrap", gap: 16, marginBottom: 32 }}>
+                      <h2
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontSize: "clamp(28px, 4vw, 38px)",
+                          textTransform: "uppercase",
+                          margin: 0,
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        Recent work
+                      </h2>
+                      <Link
+                        href="/portfolio"
+                        className="btn-secondary"
+                        style={{ fontSize: 13 }}
+                      >
+                        See full portfolio →
+                      </Link>
+                    </div>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                        gap: 20,
+                      }}
+                    >
+                      {artistPieces.map((piece) => (
+                        <PortfolioCard key={piece.id} piece={piece} />
+                      ))}
+                    </div>
+                  </div>
+                </section>
+              );
+            })()}
 
       {/* JSON-LD: Person schema for this artist */}
       <script

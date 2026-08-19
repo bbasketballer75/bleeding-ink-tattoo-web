@@ -1,60 +1,56 @@
 /**
- * InstagramFeed — mock IG grid embedded on home page.
+ * InstagramFeed — real IG photos from @ibleedink_600 embedded on home page.
  *
- * For the demo: 6 SVG cards labeled @ibleedink_600 with mock captions.
- * In production: replace with real Instagram Basic Display API call
- * (or use a service like Elfsight widget).
+ * Replaced the previous SVG mock cards with real Isiah Jackson photos.
+ * The fabricated like-counts and pieced-together captions are gone; what
+ * you see now are real images from the shop's IG + real captions cleaned
+ * up to one line each.
  *
- * Each card links to https://www.instagram.com/ibleedink_600/
+ * Each card links to https://www.instagram.com/ibleedink_600/ for the
+ * full post.
  */
 
 import Link from "next/link";
-import { BONE_WHITE, BLEED_RED, BLEED_RED_BRIGHT } from "@/lib/constants";
-import TattooSVG from "./TattooSVG";
+import { BONE_WHITE, BLEED_RED_BRIGHT } from "@/lib/constants";
 
-interface MockPost {
+interface RealPost {
+  image: string;
   caption: string;
-  style: "rose" | "skull" | "mountain" | "snake" | "compass" | "phoenix" | "moon" | "flame";
-  accent: string;
-  likes: number;
+  style: string; // short tag, not fabricated like-count
 }
 
-const POSTS: MockPost[] = [
+// Real photos from Isiah Jackson's @ibleedink_600.
+// Captions are short summaries, not fabricated likes or engagement metrics.
+const POSTS: RealPost[] = [
   {
-    caption: "Colorful lil 💐's & 🐢 Bleeding 🩸 ink",
-    style: "rose",
-    accent: "#C0382B",
-    likes: 247,
+    image: "/images/portfolio/isiah/fresh-ink-forearm.jpg",
+    caption: "Black-grey realism — fresh from a session",
+    style: "Black & Grey",
   },
   {
-    caption: "bleeding ink back in full effect even tho I never left 🔥🔥🔥",
-    style: "phoenix",
-    accent: "#D85A28",
-    likes: 184,
+    image: "/images/portfolio/isiah/shop-isiah.jpg",
+    caption: "Behind the chair at Bleeding Ink",
+    style: "Shop",
   },
   {
-    caption: "up late working 💯 as always imma be the youngest in charge watch",
-    style: "skull",
-    accent: "#F5F1E8",
-    likes: 312,
+    image: "/images/portfolio/isiah/black-grey-chest.jpg",
+    caption: "Large black-grey chest composition",
+    style: "Black & Grey",
   },
   {
-    caption: "freestyle coverup for the homie — converted a faded name into a sleeve anchor",
-    style: "compass",
-    accent: "#C9A84C",
-    likes: 156,
+    image: "/images/portfolio/isiah/sleeve-work.jpg",
+    caption: "Bold color sleeve work",
+    style: "Color",
   },
   {
-    caption: "fine line moon + stars — wrist piece, 2 hour session, healed up beautiful",
-    style: "moon",
-    accent: "#C9A84C",
-    likes: 203,
+    image: "/images/portfolio/isiah/color-religious.jpg",
+    caption: "Color realism — cross + rosary + lilies",
+    style: "Color",
   },
   {
-    caption: "traditional flame on the deltoid, classic bold lines, ready for color or solid black",
-    style: "flame",
-    accent: "#E25822",
-    likes: 178,
+    image: "/images/portfolio/isiah/fine-line-lilies.jpg",
+    caption: "Fine-line delicate work",
+    style: "Fine Line",
   },
 ];
 
@@ -92,7 +88,7 @@ export default function InstagramFeed() {
             padding: "8px 16px",
             background: "transparent",
             color: BLEED_RED_BRIGHT,
-            border: `2px solid ${BLEED_RED}`,
+            border: `2px solid ${BLEED_RED_BRIGHT}`,
             fontSize: 13,
             fontWeight: 700,
             letterSpacing: "0.05em",
@@ -120,25 +116,33 @@ export default function InstagramFeed() {
             style={{
               position: "relative",
               aspectRatio: "1 / 1",
-              background: `linear-gradient(135deg, ${post.accent}22 0%, #0A0A0A 100%)`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 16,
+              background: "#0A0A0A",
+              display: "block",
               textDecoration: "none",
               overflow: "hidden",
-              border: `1px solid rgba(245, 241, 232, 0.1)`,
+              border: "1px solid rgba(245, 241, 232, 0.1)",
             }}
             aria-label={`Instagram post: ${post.caption}`}
           >
-            <TattooSVG style={post.style} accent={post.accent} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.image}
+              alt={post.caption}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+              loading="lazy"
+            />
 
             {/* Hover overlay */}
             <div
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 50%, transparent 100%)",
+                background: "linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 60%, transparent 100%)",
                 opacity: 0,
                 transition: "opacity 0.2s ease",
                 display: "flex",
@@ -153,15 +157,15 @@ export default function InstagramFeed() {
                   fontSize: 13,
                   color: BONE_WHITE,
                   margin: 0,
-                  marginBottom: 8,
+                  marginBottom: 4,
                   lineHeight: 1.3,
                   fontWeight: 500,
                 }}
               >
                 {post.caption}
               </p>
-              <div style={{ fontSize: 12, color: BONE_WHITE, opacity: 0.8, fontWeight: 700 }}>
-                ♥ {post.likes.toLocaleString()}
+              <div style={{ fontSize: 11, color: BONE_WHITE, opacity: 0.7, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>
+                {post.style}
               </div>
             </div>
 
