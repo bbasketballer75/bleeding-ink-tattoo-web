@@ -51,3 +51,11 @@ next-env.d.ts
 scripts/ig_cookies.json
 # IG scrape export output (local-only)
 scripts/.ig_export/
+# IG cookies — local-only (never commit)
+scripts/cookies/active.json
+scripts/cookies/.test_fixtures.json
+scripts/cookies/archive/
+
+# Python
+__pycache__/
+*.pyc

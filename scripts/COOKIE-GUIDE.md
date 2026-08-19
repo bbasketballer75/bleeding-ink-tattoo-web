@@ -1,89 +1,197 @@
 # IG Cookie Export — Step by Step
 
-**Why:** This site's portfolio uses real photos from Isiah's `@ibleedink_600` Instagram (with his sign-off). IG blocks unauthenticated scraping; the `ig_scrape.py` script needs your Chrome session cookies to load the profile + recent posts. The cookies are local-only (gitignored).
+**Why:** This site's portfolio uses real photos from Isiah's `@ibleedink_600` Instagram (with his sign-off). IG blocks unauthenticated scraping; the scraper needs a logged-in browser session. Cookies carry that session.
 
-**Time:** ~3-5 minutes (one-time, or whenever cookies expire).
+> **TL;DR (the new fast way):**
+> 1. Export cookies from Chrome (5 min, full guide below)
+> 2. Drop the file in `scripts/cookies/` (any name, e.g. `new_cookies.json`)
+> 3. Run `python scripts/cookie_refresh.py` — validates + archives old + activates new (30 seconds)
+> 4. Run `python scripts/update_portfolio.py --artist isiah-jackson --commit` to scrape + stage (5 min)
+>
+> Total: ~6 minutes from "I'm logged out" to "new photos in portfolio". Detailed steps below.
 
 ---
 
-## Step 1 — Log into Instagram in Chrome
+## What you need
 
-1. Open Chrome and go to **https://instagram.com**
-2. Log in as the account that can view the @ibleedink_600 profile (if you're the account owner, easiest; if not, any logged-in IG account works for public-profile scraping)
+- A Chrome (or any Chromium-based) browser
+- Logged into the Instagram account whose work you want to scrape (e.g. `@ibleedink_600`)
+- The "Cookie-Editor" Chrome extension (one-time install, free)
 
-> If Instagram is already open in another tab, just switch to that tab — no need to log in twice.
+## Step 1: Install Cookie-Editor
 
-## Step 2 — Install the Cookie-Editor extension (if you don't have it)
+1. Open Chrome
+2. Go to [Cookie-Editor on Chrome Web Store](https://chrome.google.com/webstore/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm)
+3. Click **Add to Chrome** → confirm
+4. You should see a small cookie/jar icon in your extensions bar (top-right of Chrome)
 
-1. Open **https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm**
-2. Click **Add to Chrome** → **Add extension**
-3. The Cookie-Editor icon (cookie/jar) appears in your extensions bar
+## Step 2: Log into Instagram
 
-> **Alternatives that work the same way:** "EditThisCookie", "Cookie-Editor by compétence-web". Any of them exports a JSON array of cookie objects.
+1. In Chrome, go to [instagram.com](https://instagram.com)
+2. Log into the account whose work you want to scrape
+3. Stay logged in for the next steps
 
-## Step 3 — Open Cookie-Editor + navigate to instagram.com
+## Step 3: Export cookies
 
-1. Make sure you're on **https://instagram.com** (or any `instagram.com` page)
-2. Click the **Cookie-Editor icon** in your extensions bar
-3. The Cookie-Editor panel opens, showing all cookies for the current site
+1. While on instagram.com, click the **Cookie-Editor extension icon** (cookie/jar)
+2. Click the **Export** button
+3. Select **Cookies (JSON)** format (NOT Netscape)
+4. Save the file anywhere convenient (e.g. your Desktop). Chrome will name it something like `cookies.json` or `instagram.com_cookies.json`
 
-## Step 4 — Export the cookies
+## Step 4: Drop the file in the right place
 
-1. In Cookie-Editor, click the **Export** button (usually top-right of the panel)
-2. Choose format: **Cookies (JSON)** — NOT "Netscape" / "Header String" / etc.
-3. A JSON file downloads to your `~/Downloads` folder (usually named something like `cookies-instagram-com.json` or `export.json`)
+1. Move/save the file to:
+   ```
+   C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web/scripts/cookies/
+   ```
+2. Name it whatever you want — e.g. `new_cookies.json`, `2026-09-15_cookies.json`. The `cookie_refresh.py` script will pick the newest file.
 
-> **What the JSON looks like:** a flat array of cookie objects, each with `name`, `value`, `domain`, `path`, `expirationDate`, `httpOnly`, `secure`, `sameSite`, `hostOnly`, `storeId`. The script needs `sessionid` and (ideally) `csrftoken` to work.
+> **Don't worry about overwriting:** the `cookie_refresh.py` script auto-archives the previous `active.json` to `scripts/cookies/archive/<timestamp>.json` before replacing. You'll have a rollback if the new cookies are broken.
 
-## Step 5 — Save the file in the project
-
-1. Rename the file to exactly `ig_cookies.json` (case-sensitive)
-2. Move it to: **`C:\Users\bbausks\Coding_Projects\bleeding-ink-tattoo-web\scripts\ig_cookies.json`**
-
-> The file is gitignored (`scripts/ig_cookies.json` in `.gitignore`) — it will never be committed by accident.
-
-## Step 6 — Verify the format (optional but recommended)
-
-Open a terminal and run:
+## Step 5: Run the refresh script
 
 ```bash
-cd "C:\Users\bbausks\Coding_Projects\bleeding-ink-tattoo-web\scripts"
-python -c "import json; c=json.load(open('ig_cookies.json')); print(f'{len(c)} cookies'); print('names:', sorted({x[\"name\"] for x in c}))"
+cd C:/Users/bbask/Coding_Projects/bleeding-ink-tattoo-web
+python scripts/cookie_refresh.py
 ```
 
-You should see something like:
-
-```
-17 cookies
-names: ['csrftoken', 'ds_user_id', 'ig_did', 'mid', 'sessionid', ...]
+Or explicitly point at the file you just dropped:
+```bash
+python scripts/cookie_refresh.py --path scripts/cookies/new_cookies.json
 ```
 
-**Required:** `sessionid` and `csrftoken` MUST be in the list. If `sessionid` is missing, re-export — Chrome may have filtered the httpOnly cookies.
+What this does:
+1. Validates the new cookies (checks for required cookies like `sessionid`, `csrftoken`)
+2. Computes the age from the latest `expirationDate`
+3. Archives the current `active.json` to `archive/<timestamp>.json` (rollback safety)
+4. Copies your new file to `active.json`
+5. Prints a one-line status: 🟢/🟡/🔴 + days remaining
 
-## Step 7 — Tell Hermes you're done
+Example output:
+```
+source: new_cookies.json
+cookie age: 27 days (🟢 OK)
+validation: 🟢 11 cookies parsed OK
+archived: cookies/archive/2026-08-19_111054.json
+activated: cookies/active.json
 
-Just say "cookies saved" in chat. I'll:
-1. Run the scraper (it downloads images + captions to `scripts/.ig_export/`)
-2. Sanity-check the results (file sizes, format)
-3. Show you a preview
-4. Wire the real images into the portfolio data
-5. Build + deploy + commit
+=== SUMMARY ===
+new cookies: new_cookies.json
+age: 27 days (🟢 OK)
 
----
+Next step: python scripts/update_portfolio.py --artist isiah-jackson
+```
+
+If validation fails, the script prints what went wrong (e.g. "sessionid cookie missing") and exits with a non-zero code. The old `active.json` is preserved.
+
+## Step 6: Scrape + update portfolio
+
+```bash
+python scripts/update_portfolio.py --artist isiah-jackson
+```
+
+What this does:
+1. Loads the cookies from `active.json`
+2. Runs the scraper (Playwright headless, ~3-5 min)
+3. Filters for real tattoo photos (≥50KB, portrait aspect preferred)
+4. Deduplicates by SHA-256 (no duplicates with existing photos)
+5. Copies new images to `public/images/portfolio/isiah/`
+6. Updates `src/data/portfolio.ts` with new entries
+7. **Stages** the changes in git (doesn't commit automatically)
+
+When done, review the staged changes:
+```bash
+git status
+git diff --cached
+```
+
+If it looks good, commit and push:
+```bash
+git commit -m "chore(portfolio): auto-update from IG scrape"
+git push
+```
+
+Or use `--commit` flag to commit (but not push):
+```bash
+python scripts/update_portfolio.py --artist isiah-jackson --commit
+```
+
+## Dry-run mode
+
+Want to see what would happen without making changes?
+
+```bash
+python scripts/update_portfolio.py --artist isiah-jackson --dry-run
+```
+
+This will run the full scrape and tell you:
+- How many new images would be added
+- What their filenames would be
+- Which existing entries would be modified
+Without writing any files.
 
 ## FAQ
 
-**Q: Will my cookies stay safe?**
-Yes — they're stored locally in `scripts/ig_cookies.json`, which is gitignored. The script uses them only to load the IG profile in a headless Chromium instance.
+### How often do I need to do this?
 
-**Q: How long do the cookies last?**
-Typically 30-90 days. If the script logs "redirected to login" or "logged out", your cookies expired — just re-export.
+- IG cookies typically last **~30 days** before the `sessionid` expires.
+- The system will alert you via the daily health check (1mcp cron) when cookies hit 21 days.
+- For safety: **refresh monthly** (every 30 days) as a habit.
 
-**Q: Can I use a different account?**
-Yes. Log in as any IG account that can see the target profile, then export that account's cookies.
+### What if I forget and the cookies expire?
 
-**Q: I don't have Chrome / prefer Firefox?**
-The script expects Cookie-Editor-style JSON (Chrome's format). If you're on Firefox, use "cookies.txt" format from another extension like "Cookie-Editor by compétence-web" (cross-browser) and export as JSON, not as the Netscape cookie file.
+The scraper will fail with an error message saying "not logged in." Re-export from Chrome (steps above) and run the refresh + update.
 
-**Q: What if Instagram flags my account for automation?**
-Low risk for read-only public-profile scraping with normal cookies. If IG prompts you for a captcha on next login, complete it, then re-export cookies. Don't run the scraper more than a few times per hour.
+### Can I test if my cookies work without running the full scrape?
+
+```bash
+python scripts/cookie_refresh.py --path scripts/cookies/active.json --validate-only
+```
+
+This validates the JSON, checks for required cookies, and computes the age — no scraping, no archives.
+
+### Where do I get the right IG account?
+
+For this site: log into Isiah Jackson's `@ibleedink_600` account (or the account whose portfolio you want featured). If you don't have the password, ask the account owner to do this 30-second export for you.
+
+### The cookie age says "EXPIRED" but Chrome shows me logged in — what gives?
+
+IG's sessionid cookie is bound to specific browser fingerprint + IP. If you're logging in from a different device or IP than usual, IG may invalidate the cookie within hours even if it was set to expire in 90 days. Just re-export and try again.
+
+### I'm getting 403 "Bad URL hash" errors when downloading images
+
+This used to be a cookie problem but isn't anymore (the scraper uses browser-context fetch via network interception, which bypasses this). If you see it:
+1. Check the cookies are loaded: `python scripts/cookie_refresh.py --validate-only`
+2. Re-export fresh cookies from Chrome
+3. Try `python scripts/update_portfolio.py --no-headless` to see what's happening in the browser
+
+### The scrape completes but I don't see new images
+
+The scraper skips images < 50KB (UI thumbnails) and prefers portrait aspect. Check `scripts/.ig_export/<artist>/<timestamp>/posts/` to see what was captured — the raw output is always preserved.
+
+### Where can I see the daily health alerts?
+
+The `ig-cookie-health-daily` cron (registered with 1mcp) runs daily at 8am. To get Telegram alerts, you'd want to add `deliver='telegram'` when creating the cron (currently set to local — outputs saved but not pushed).
+
+## Architecture (for the curious)
+
+The cookie system has three layers:
+
+```
+┌─────────────────────────────────────────────────────┐
+│ Layer 1: Cookie ingest (one drop-in)                │
+│   scripts/cookies/active.json  ← only file you touch│
+│   scripts/cookie_refresh.py    ← validates + archives │
+├─────────────────────────────────────────────────────┤
+│ Layer 2: Scrape runner (manual or scheduled)         │
+│   scripts/ig_scrape.py         ← thin CLI             │
+│   scripts/update_portfolio.py  ← orchestrator + diff │
+│   scripts/lib/                 ← pure helpers         │
+├─────────────────────────────────────────────────────┤
+│ Layer 3: Health monitoring (cron, daily 8am)        │
+│   scripts/ig-cookie-health.py  ← status + alert      │
+│   (1mcp cron job: ig-cookie-health-daily)             │
+└─────────────────────────────────────────────────────┘
+```
+
+For the frictionless workflow: just drop in new cookies + run one command. Everything else is automated.
